@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 import com.thinkme.utils.collection.ListUtil;
+import com.thinkme.utils.reflect.ClassUtil;
 import com.thinkme.utils.text.Charsets;
 
 import com.google.common.io.Resources;
@@ -98,7 +99,7 @@ public class ResourceUtil {
 	///////////// 打开所有同名文件///////
 
 	public static List<URL> getResources(String resourceName) {
-		return getResources(resourceName, com.thinkme.utils.reflect.ClassUtil.getDefaultClassLoader());
+		return getResources(resourceName, ClassUtil.getDefaultClassLoader());
 	}
 
 	public static List<URL> getResources(String resourceName, ClassLoader contextClassLoader) {

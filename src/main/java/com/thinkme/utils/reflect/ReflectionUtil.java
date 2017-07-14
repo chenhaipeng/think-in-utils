@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.thinkme.utils.base.ExceptionUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
@@ -174,7 +175,7 @@ public class ReflectionUtil {
 		try {
 			return (T) method.invoke(obj, args);
 		} catch (Exception e) {
-			throw com.thinkme.utils.base.ExceptionUtil.uncheckedAndWrap(e);
+			throw ExceptionUtil.uncheckedAndWrap(e);
 		}
 	}
 
@@ -186,7 +187,7 @@ public class ReflectionUtil {
 		try {
 			return ConstructorUtils.invokeConstructor(cls, args);
 		} catch (Exception e) {
-			throw com.thinkme.utils.base.ExceptionUtil.uncheckedAndWrap(e);
+			throw ExceptionUtil.uncheckedAndWrap(e);
 		}
 	}
 
@@ -203,6 +204,6 @@ public class ReflectionUtil {
 		} else if (e instanceof RuntimeException) {
 			return (RuntimeException) e;
 		}
-		return new com.thinkme.utils.base.ExceptionUtil.UncheckedException(e);
+		return new ExceptionUtil.UncheckedException(e);
 	}
 }

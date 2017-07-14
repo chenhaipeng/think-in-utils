@@ -3,7 +3,9 @@ package com.thinkme.utils.text;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.thinkme.utils.collection.ListUtil;
 import org.apache.commons.lang3.StringUtils;
+import com.thinkme.utils.base.annotation.Nullable;
 
 import com.google.common.base.Utf8;
 
@@ -29,13 +31,13 @@ public class MoreStringUtil {
 	 * 
 	 * @return 如果为null返回null, 如果为""返回空数组
 	 */
-	public static List<String> split(@com.thinkme.utils.base.annotation.Nullable final String str, final char separatorChar, int expectParts) {
+	public static List<String> split(@Nullable final String str, final char separatorChar, int expectParts) {
 		if (str == null) {
 			return null;
 		}
 		final int len = str.length();
 		if (len == 0) {
-			return com.thinkme.utils.collection.ListUtil.emptyList();
+			return ListUtil.emptyList();
 		}
 		final List<String> list = new ArrayList<String>(expectParts);
 		int i = 0;
@@ -62,7 +64,7 @@ public class MoreStringUtil {
 	/**
 	 * String 有replace(char,char)，但缺少单独replace first/last的
 	 */
-	public static String replaceFirst(@com.thinkme.utils.base.annotation.Nullable String s, char sub, char with) {
+	public static String replaceFirst(@Nullable String s, char sub, char with) {
 		if (s == null) {
 			return null;
 		}
@@ -78,7 +80,7 @@ public class MoreStringUtil {
 	/**
 	 * String 有replace(char,char)替换全部char，但缺少单独replace first/last
 	 */
-	public static String replaceLast(@com.thinkme.utils.base.annotation.Nullable String s, char sub, char with) {
+	public static String replaceLast(@Nullable String s, char sub, char with) {
 		if (s == null) {
 			return null;
 		}
@@ -97,7 +99,7 @@ public class MoreStringUtil {
 	 * 
 	 * 如果字符串为Null或空，返回false
 	 */
-	public static boolean startWith(@com.thinkme.utils.base.annotation.Nullable CharSequence s, char c) {
+	public static boolean startWith(@Nullable CharSequence s, char c) {
 		if (StringUtils.isEmpty(s)) {
 			return false;
 		}
@@ -109,7 +111,7 @@ public class MoreStringUtil {
 	 * 
 	 * 如果字符串为Null或空，返回false
 	 */
-	public static boolean endWith(@com.thinkme.utils.base.annotation.Nullable CharSequence s, char c) {
+	public static boolean endWith(@Nullable CharSequence s, char c) {
 		if (StringUtils.isEmpty(s)) {
 			return false;
 		}
@@ -131,7 +133,7 @@ public class MoreStringUtil {
 	 * 
 	 * @see Utf8#encodedLength(CharSequence)
 	 */
-	public static int utf8EncodedLength(@com.thinkme.utils.base.annotation.Nullable CharSequence sequence) {
+	public static int utf8EncodedLength(@Nullable CharSequence sequence) {
 		if (StringUtils.isEmpty(sequence)) {
 			return 0;
 		}

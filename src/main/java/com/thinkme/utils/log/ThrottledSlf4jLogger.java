@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
+import com.thinkme.utils.time.ClockUtil;
 
 /**
  * 带限流功能的Logger，该logger在配置的时间间隔内只输出一条日志。
@@ -30,10 +31,10 @@ public class ThrottledSlf4jLogger implements Logger {
 	}
 
 	private boolean shouldLog() {
-		if (com.thinkme.utils.time.ClockUtil.currentTimeMillis() - lastLoggedMillis >= windowSizeMillis
+		if (ClockUtil.currentTimeMillis() - lastLoggedMillis >= windowSizeMillis
 				&& logToggle.compareAndSet(false, true)) {
 			try {
-				lastLoggedMillis = com.thinkme.utils.time.ClockUtil.currentTimeMillis();
+				lastLoggedMillis = ClockUtil.currentTimeMillis();
 
 				return true;
 			} finally {

@@ -11,7 +11,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/jsr166e/ForkJoinWorkerThread.java 1.6
  * 
  * A thread managed by a {@link ForkJoinPool}, which executes
- * {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinTask}s.
+ * {@link ForkJoinTask}s.
  * This class is subclassable solely for the sake of adding
  * functionality -- there are no overridable methods dealing with
  * scheduling or execution.  However, you can override initialization
@@ -102,7 +102,7 @@ public class ForkJoinWorkerThread extends Thread {
     /**
      * This method is required to be public, but should never be
      * called explicitly. It performs the main run loop to execute
-     * {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinTask}s.
+     * {@link ForkJoinTask}s.
      */
     public void run() {
         Throwable exception = null;

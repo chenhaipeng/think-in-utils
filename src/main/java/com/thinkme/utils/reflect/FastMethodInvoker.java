@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.thinkme.utils.base.ExceptionUtil;
 import com.thinkme.utils.collection.MapUtil;
-import com.thinkme.utils.collection.MapUtil.ValueCreator;
 
 import net.sf.cglib.reflect.FastClass;
 import net.sf.cglib.reflect.FastMethod;
@@ -67,7 +66,7 @@ public class FastMethodInvoker {
 	}
 
 	private static FastMethodInvoker build(final Class<?> clz, Method method) {
-		FastClass fastClz = MapUtil.createIfAbsent(fastClassMap, clz, new ValueCreator<FastClass>() {
+		FastClass fastClz = MapUtil.createIfAbsent(fastClassMap, clz, new MapUtil.ValueCreator<FastClass>() {
 			@Override
 			public FastClass get() {
 				return FastClass.create(clz);

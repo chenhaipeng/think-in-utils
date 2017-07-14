@@ -5,6 +5,7 @@
  *******************************************************************************/
 package com.thinkme.utils.base;
 
+import com.thinkme.utils.base.annotation.Nullable;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -129,14 +130,14 @@ public class ExceptionUtil {
 	 * 
 	 * @see ExceptionUtils#getMessage(Throwable)
 	 */
-	public static String toStringWithShortName(@com.thinkme.utils.base.annotation.Nullable Throwable t) {
+	public static String toStringWithShortName(@Nullable Throwable t) {
 		return ExceptionUtils.getMessage(t);
 	}
 
 	/**
 	 * 拼装 短异常类名: 异常信息 <-- RootCause的短异常类名: 异常信息
 	 */
-	public static String toStringWithRootCause(@com.thinkme.utils.base.annotation.Nullable Throwable t) {
+	public static String toStringWithRootCause(@Nullable Throwable t) {
 		if (t == null) {
 			return StringUtils.EMPTY;
 		}

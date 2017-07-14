@@ -14,6 +14,7 @@ import javax.net.ServerSocketFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.thinkme.utils.base.SystemPropertiesUtil;
 import com.thinkme.utils.collection.MapUtil;
 
 import com.google.common.annotations.Beta;
@@ -148,10 +149,10 @@ public class NetUtil {
 	 */
 	private static InetAddress findLocalAddressViaNetworkInterface() {
 		// 如果hostname +/etc/hosts 得到的是127.0.0.1, 则首选这块网卡
-		String preferNamePrefix = com.thinkme.utils.base.SystemPropertiesUtil.getString("localhost.prefer.nic.prefix",
+		String preferNamePrefix = SystemPropertiesUtil.getString("localhost.prefer.nic.prefix",
 				"LOCALHOST_PREFER_NIC_PREFIX", "bond0.");
 		// 如果hostname +/etc/hosts 得到的是127.0.0.1, 和首选网卡都不符合要求，则按顺序遍历下面的网卡
-		String defaultNicList = com.thinkme.utils.base.SystemPropertiesUtil.getString("localhost.default.nic.list",
+		String defaultNicList = SystemPropertiesUtil.getString("localhost.default.nic.list",
 				"LOCALHOST_DEFAULT_NIC_LIST", "bond0,eth0,em0,br0");
 
 		InetAddress resultAddress = null;

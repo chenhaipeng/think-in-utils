@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.thinkme.utils.base.annotation.Nullable;
+import com.thinkme.utils.collection.type.ConcurrentHashSet;
+
 import com.google.common.collect.Sets;
 
 /**
@@ -70,15 +73,15 @@ public class SetUtil {
 	 * 
 	 * @see Sets#newTreeSet(Comparator)
 	 */
-	public static <T> TreeSet<T> newSortedSet(@com.thinkme.utils.base.annotation.Nullable Comparator<? super T> comparator) {
+	public static <T> TreeSet<T> newSortedSet(@Nullable Comparator<? super T> comparator) {
 		return Sets.newTreeSet(comparator);
 	}
 
 	/**
 	 * 根据等号左边的类型，构造类型正确的ConcurrentHashSet
 	 */
-	public static <T> com.thinkme.utils.collection.type.ConcurrentHashSet<T> newConcurrentHashSet() {
-		return new com.thinkme.utils.collection.type.ConcurrentHashSet<T>();
+	public static <T> ConcurrentHashSet<T> newConcurrentHashSet() {
+		return new ConcurrentHashSet<T>();
 	}
 
 	///////////////// from JDK Collections的常用构造函数 ///////////////////

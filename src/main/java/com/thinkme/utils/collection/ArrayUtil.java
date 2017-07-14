@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import com.thinkme.utils.base.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.ObjectArrays;
 import com.google.common.primitives.Doubles;
@@ -44,14 +46,14 @@ public class ArrayUtil {
 	/**
 	 * 添加元素到数组头，没有银弹，复制扩容.
 	 */
-	public static <T> T[] concat(@com.thinkme.utils.base.annotation.Nullable T element, T[] array) {
+	public static <T> T[] concat(@Nullable T element, T[] array) {
 		return ObjectArrays.concat(element, array);
 	}
 
 	/**
 	 * 添加元素到数组末尾，没有银弹，复制扩容.
 	 */
-	public static <T> T[] concat(T[] array, @com.thinkme.utils.base.annotation.Nullable T element) {
+	public static <T> T[] concat(T[] array, @Nullable T element) {
 		return ObjectArrays.concat(array, element);
 	}
 

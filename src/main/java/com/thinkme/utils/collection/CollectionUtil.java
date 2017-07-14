@@ -11,6 +11,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import com.thinkme.utils.collection.type.Pair;
+
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Ordering;
@@ -111,7 +113,7 @@ public class CollectionUtil {
 	/**
 	 * 返回无序集合中的最小值和最大值，使用元素默认排序
 	 */
-	public static <T extends Object & Comparable<? super T>> com.thinkme.utils.collection.type.Pair<T, T> minAndMax(Collection<? extends T> coll) {
+	public static <T extends Object & Comparable<? super T>> Pair<T, T> minAndMax(Collection<? extends T> coll) {
 		Iterator<? extends T> i = coll.iterator();
 		T minCandidate = i.next();
 		T maxCandidate = minCandidate;
@@ -124,13 +126,13 @@ public class CollectionUtil {
 				maxCandidate = next;
 			}
 		}
-		return com.thinkme.utils.collection.type.Pair.of(minCandidate, maxCandidate);
+		return Pair.of(minCandidate, maxCandidate);
 	}
 
 	/**
 	 * 返回无序集合中的最小值和最大值
 	 */
-	public static <T> com.thinkme.utils.collection.type.Pair<T, T> minAndMax(Collection<? extends T> coll, Comparator<? super T> comp) {
+	public static <T> Pair<T, T> minAndMax(Collection<? extends T> coll, Comparator<? super T> comp) {
 
 		Iterator<? extends T> i = coll.iterator();
 		T minCandidate = i.next();
@@ -145,7 +147,7 @@ public class CollectionUtil {
 			}
 		}
 
-		return com.thinkme.utils.collection.type.Pair.of(minCandidate, maxCandidate);
+		return Pair.of(minCandidate, maxCandidate);
 	}
 
 	/**

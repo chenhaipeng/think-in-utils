@@ -13,9 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
+import com.thinkme.utils.base.annotation.Nullable;
+import com.thinkme.utils.collection.type.primitive.IntObjectHashMap;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableLong;
-import com.thinkme.utils.base.annotation.Nullable;
+import com.thinkme.utils.base.Platforms;
+import com.thinkme.utils.base.annotation.NotNull;
 import com.thinkme.utils.collection.type.primitive.LongObjectHashMap;
 import com.thinkme.utils.concurrent.jsr166e.ConcurrentHashMapV8;
 
@@ -68,8 +71,8 @@ public class MapUtil {
 	 * 
 	 * @see org.apache.commons.lang3.concurrent.ConcurrentUtils#putIfAbsent(ConcurrentMap, Object, Object)
 	 */
-	public static <K, V> V putIfAbsentWithFinalValue(@com.thinkme.utils.base.annotation.NotNull final ConcurrentMap<K, V> map, final K key,
-													 final V value) {
+	public static <K, V> V putIfAbsentWithFinalValue(@NotNull final ConcurrentMap<K, V> map, final K key,
+			final V value) {
 		final V result = map.putIfAbsent(key, value);
 		return result != null ? result : value;
 	}
@@ -82,8 +85,8 @@ public class MapUtil {
 	 * @see org.apache.commons.lang3.concurrent.ConcurrentUtils#createIfAbsent(ConcurrentMap, Object,
 	 * org.apache.commons.lang3.concurrent.ConcurrentInitializer)
 	 */
-	public static <K, V> V createIfAbsent(@com.thinkme.utils.base.annotation.NotNull final ConcurrentMap<K, V> map, final K key,
-										  @com.thinkme.utils.base.annotation.NotNull final ValueCreator<? extends V> creator) {
+	public static <K, V> V createIfAbsent(@NotNull final ConcurrentMap<K, V> map, final K key,
+			@NotNull final ValueCreator<? extends V> creator) {
 		final V value = map.get(key);
 		if (value == null) {
 			return putIfAbsentWithFinalValue(map, key, creator.get());
@@ -146,7 +149,7 @@ public class MapUtil {
 	 * 
 	 * 同时初始化元素.
 	 */
-	public static <K, V> HashMap<K, V> newHashMap(@com.thinkme.utils.base.annotation.NotNull final K[] keys, @com.thinkme.utils.base.annotation.NotNull final V[] values) {
+	public static <K, V> HashMap<K, V> newHashMap(@NotNull final K[] keys, @NotNull final V[] values) {
 		if (keys.length != values.length) {
 			throw new IllegalArgumentException(
 					"keys.length is " + keys.length + " but values.length is " + values.length);
@@ -166,7 +169,7 @@ public class MapUtil {
 	 * 
 	 * 同时初始化元素.
 	 */
-	public static <K, V> HashMap<K, V> newHashMap(@com.thinkme.utils.base.annotation.NotNull final List<K> keys, @com.thinkme.utils.base.annotation.NotNull final List<V> values) {
+	public static <K, V> HashMap<K, V> newHashMap(@NotNull final List<K> keys, @NotNull final List<V> values) {
 		if (keys.size() != values.size()) {
 			throw new IllegalArgumentException("keys.size is " + keys.size() + " but values.size is " + values.size());
 		}
@@ -204,7 +207,7 @@ public class MapUtil {
 	/**
 	 * 相比HashMap，当key是枚举类时, 性能与空间占用俱佳.
 	 */
-	public static <K extends Enum<K>, V> EnumMap<K, V> newEnumMap(@com.thinkme.utils.base.annotation.NotNull Class<K> type) {
+	public static <K extends Enum<K>, V> EnumMap<K, V> newEnumMap(@NotNull Class<K> type) {
 		return new EnumMap<K, V>(Preconditions.checkNotNull(type));
 	}
 
@@ -214,7 +217,7 @@ public class MapUtil {
 	 * 如果JDK8，使用原生ConcurrentHashMap，否则使用移植版
 	 */
 	public static <K, V> ConcurrentMap<K, V> newConcurrentHashMap() {
-		if (com.thinkme.utils.base.Platforms.IS_ATLEASET_JAVA8) {
+		if (Platforms.IS_ATLEASET_JAVA8) {
 			return new ConcurrentHashMap<K, V>();
 		} else {
 			return new ConcurrentHashMapV8<K, V>();
@@ -256,8 +259,8 @@ public class MapUtil {
 	 * @param initialCapacity 建议为16
 	 * @param loadFactor 建议为0.5
 	 */
-	public static <V> com.thinkme.utils.collection.type.primitive.IntObjectHashMap<V> createIntObjectHashMap(int initialCapacity, float loadFactor) {
-		return new com.thinkme.utils.collection.type.primitive.IntObjectHashMap<V>(initialCapacity, loadFactor);
+	public static <V> IntObjectHashMap<V> createIntObjectHashMap(int initialCapacity, float loadFactor) {
+		return new IntObjectHashMap<V>(initialCapacity, loadFactor);
 	}
 
 	/**

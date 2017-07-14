@@ -19,10 +19,10 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.namespace.QName;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import com.thinkme.utils.base.ExceptionUtil;
 import com.thinkme.utils.reflect.ClassUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * 使用Jaxb2.0实现XML<->Java Object的Mapper.
@@ -40,7 +40,7 @@ public class XmlMapper {
 	 * Java Object->Xml without encoding.
 	 */
 	public static String toXml(Object root) {
-		Class clazz =ClassUtil.unwrapCglib(root);
+		Class clazz = ClassUtil.unwrapCglib(root);
 		return toXml(root, clazz, null);
 	}
 

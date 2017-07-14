@@ -10,7 +10,7 @@ package com.thinkme.utils.concurrent.jsr166e;
 /**
  * http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/jsr166e/CountedCompleter.java 1.31
  * 
- * A {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinTask} with a completion action performed when
+ * A {@link ForkJoinTask} with a completion action performed when
  * triggered and there are no remaining pending actions.
  * CountedCompleters are in general more robust in the
  * presence of subtask stalls and blockage than are other forms of
@@ -66,10 +66,10 @@ package com.thinkme.utils.concurrent.jsr166e;
  * used as a regular ForkJoinTask with this added functionality.
  * However, any completer that in turn has another completer serves
  * only as an internal helper for other computations, so its own task
- * status (as reported in methods such as {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinTask#isDone})
+ * status (as reported in methods such as {@link ForkJoinTask#isDone})
  * is arbitrary; this status changes only upon explicit invocations of
- * {@link #complete}, {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinTask#cancel},
- * {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinTask#completeExceptionally(Throwable)} or upon
+ * {@link #complete}, {@link ForkJoinTask#cancel},
+ * {@link ForkJoinTask#completeExceptionally(Throwable)} or upon
  * exceptional completion of method {@code compute}. Upon any
  * exceptional completion, the exception may be relayed to a task's
  * completer (and its completer, and so on), if one exists and it has
@@ -104,7 +104,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * (because no result combination is performed, the default no-op
  * implementation of method {@code onCompletion} is not overridden).
  * A static utility method sets up the base task and invokes it
- * (here, implicitly using the {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinPool#commonPool()}).
+ * (here, implicitly using the {@link ForkJoinPool#commonPool()}).
  *
  * <pre> {@code
  * class MyOperation<E> { void apply(E e) { ... }  }
@@ -382,7 +382,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * @since 1.8
  * @author Doug Lea
  */
-public abstract class CountedCompleter<T> extends com.thinkme.utils.concurrent.jsr166e.ForkJoinTask<T> {
+public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
     private static final long serialVersionUID = 5232453752276485070L;
 
     /** This task's completer, or null if none */
@@ -446,7 +446,7 @@ public abstract class CountedCompleter<T> extends com.thinkme.utils.concurrent.j
      * #completeExceptionally(Throwable)} is invoked or method {@link
      * #compute} throws an exception, and this task has not already
      * otherwise completed normally. On entry to this method, this task
-     * {@link com.thinkme.utils.concurrent.jsr166e.ForkJoinTask#isCompletedAbnormally}.  The return value
+     * {@link ForkJoinTask#isCompletedAbnormally}.  The return value
      * of this method controls further propagation: If {@code true}
      * and this task has a completer that has not completed, then that
      * completer is also completed exceptionally, with the same
@@ -631,7 +631,7 @@ public abstract class CountedCompleter<T> extends com.thinkme.utils.concurrent.j
 
     /**
      * If this task does not have a completer, invokes {@link
-     * com.thinkme.utils.concurrent.jsr166e.ForkJoinTask#quietlyComplete} and returns {@code null}.  Or, if
+     * ForkJoinTask#quietlyComplete} and returns {@code null}.  Or, if
      * the completer's pending count is non-zero, decrements that
      * pending count and returns {@code null}.  Otherwise, returns the
      * completer.  This method can be used as part of a completion

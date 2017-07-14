@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
+import com.thinkme.utils.base.annotation.NotNull;
 
 /**
  * Date的parse()与format(), 采用Apache Common Lang中线程安全, 性能更佳的FastDateFormat
@@ -52,7 +53,7 @@ public class DateFormatUtil {
 	 * 
 	 * FastDateFormat.getInstance()已经做了缓存，不会每次创建对象，但直接使用对象仍然能减少在缓存中的查找.
 	 */
-	public static Date pareDate(@com.thinkme.utils.base.annotation.NotNull String pattern, @com.thinkme.utils.base.annotation.NotNull String dateString) throws ParseException {
+	public static Date pareDate(@NotNull String pattern, @NotNull String dateString) throws ParseException {
 		return FastDateFormat.getInstance(pattern).parse(dateString);
 	}
 
@@ -63,7 +64,7 @@ public class DateFormatUtil {
 	 * 
 	 * FastDateFormat.getInstance()已经做了缓存，不会每次创建对象，但直接使用对象仍然能减少在缓存中的查找.
 	 */
-	public static String formatDate(@com.thinkme.utils.base.annotation.NotNull String pattern, @com.thinkme.utils.base.annotation.NotNull Date date) {
+	public static String formatDate(@NotNull String pattern, @NotNull Date date) {
 		return FastDateFormat.getInstance(pattern).format(date);
 	}
 
@@ -74,7 +75,7 @@ public class DateFormatUtil {
 	 * 
 	 * FastDateFormat.getInstance()已经做了缓存，不会每次创建对象，但直接使用对象仍然能减少在缓存中的查找.
 	 */
-	public static String formatDate(@com.thinkme.utils.base.annotation.NotNull String pattern, long date) {
+	public static String formatDate(@NotNull String pattern, long date) {
 		return FastDateFormat.getInstance(pattern).format(date);
 	}
 
@@ -84,7 +85,7 @@ public class DateFormatUtil {
 	 * 
 	 * endDate必须大于startDate，间隔可大于1天，
 	 */
-	public static String formatDuration(@com.thinkme.utils.base.annotation.NotNull Date startDate, @com.thinkme.utils.base.annotation.NotNull Date endDate) {
+	public static String formatDuration(@NotNull Date startDate, @NotNull Date endDate) {
 		return DurationFormatUtils.formatDurationHMS(endDate.getTime() - startDate.getTime());
 	}
 
@@ -102,7 +103,7 @@ public class DateFormatUtil {
 	 * 
 	 * endDate必须大于startDate，间隔可大于1天
 	 */
-	public static String formatDurationOnSecond(@com.thinkme.utils.base.annotation.NotNull Date startDate, @com.thinkme.utils.base.annotation.NotNull Date endDate) {
+	public static String formatDurationOnSecond(@NotNull Date startDate, @NotNull Date endDate) {
 		return DurationFormatUtils.formatDuration(endDate.getTime() - startDate.getTime(), "HH:mm:ss");
 	}
 
@@ -121,7 +122,7 @@ public class DateFormatUtil {
 	 * 
 	 * from AndroidUtilCode
 	 */
-	public static String formatFriendlyTimeSpanByNow(@com.thinkme.utils.base.annotation.NotNull Date date) {
+	public static String formatFriendlyTimeSpanByNow(@NotNull Date date) {
 		return formatFriendlyTimeSpanByNow(date.getTime());
 	}
 

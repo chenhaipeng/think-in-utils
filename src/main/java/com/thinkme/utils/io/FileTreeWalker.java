@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.thinkme.utils.text.WildcardMatcher;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.TreeTraverser;
 import com.google.common.io.Files;
@@ -104,7 +106,7 @@ public class FileTreeWalker {
 
 		@Override
 		public boolean apply(File input) {
-			return input.isFile() && com.thinkme.utils.text.WildcardMatcher.match(input.getName(), pattern);
+			return input.isFile() && WildcardMatcher.match(input.getName(), pattern);
 		}
 	}
 
@@ -138,7 +140,7 @@ public class FileTreeWalker {
 
 		@Override
 		public boolean apply(File input) {
-			return input.isFile() && com.thinkme.utils.text.WildcardMatcher.matchPath(input.getAbsolutePath(), pattern);
+			return input.isFile() && WildcardMatcher.matchPath(input.getAbsolutePath(), pattern);
 		}
 	}
 }

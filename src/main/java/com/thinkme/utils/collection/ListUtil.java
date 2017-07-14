@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.thinkme.utils.collection.type.SortedArrayList;
+
 import com.google.common.collect.Lists;
 
 /**
@@ -141,8 +143,8 @@ public class ListUtil {
 	 * from Jodd的新类型，插入时排序，但指定插入index的方法如add(index,element)不支持
 	 */
 	@SuppressWarnings("rawtypes")
-	public static <T extends Comparable> com.thinkme.utils.collection.type.SortedArrayList<T> createSortedArrayList() {
-		return new com.thinkme.utils.collection.type.SortedArrayList<T>();
+	public static <T extends Comparable> SortedArrayList<T> createSortedArrayList() {
+		return new SortedArrayList<T>();
 	}
 
 	/**
@@ -150,8 +152,8 @@ public class ListUtil {
 	 * 
 	 * from Jodd的新类型，插入时排序，但指定插入index的方法如add(index,element)不支持
 	 */
-	public static <T> com.thinkme.utils.collection.type.SortedArrayList<T> createSortedArrayList(Comparator<? super T> c) {
-		return new com.thinkme.utils.collection.type.SortedArrayList<T>(c);
+	public static <T> SortedArrayList<T> createSortedArrayList(Comparator<? super T> c) {
+		return new SortedArrayList<T>(c);
 	}
 
 	///////////////// from JDK Collections的常用构造函数 ///////////////////

@@ -4,6 +4,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 
 import com.thinkme.utils.concurrent.jsr166e.LongAdder;
+import com.thinkme.utils.concurrent.throttle.Sampler;
 
 import com.google.common.util.concurrent.RateLimiter;
 
@@ -47,7 +48,7 @@ public class ConcurrentTools {
 	 * 
 	 * @param selectPercent 采样率，在0-100 之间，可以有小数位
 	 */
-	public static com.thinkme.utils.concurrent.throttle.Sampler sampler(double selectPercent) {
-		return com.thinkme.utils.concurrent.throttle.Sampler.create(selectPercent);
+	public static Sampler sampler(double selectPercent) {
+		return Sampler.create(selectPercent);
 	}
 }

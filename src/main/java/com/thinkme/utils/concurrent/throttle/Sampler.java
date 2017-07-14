@@ -1,7 +1,7 @@
 package com.thinkme.utils.concurrent.throttle;
 
-import org.apache.commons.lang3.Validate;
 import com.thinkme.utils.number.RandomUtil;
+import org.apache.commons.lang3.Validate;
 
 /**
  * 采样器

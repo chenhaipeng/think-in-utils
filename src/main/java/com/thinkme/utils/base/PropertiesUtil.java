@@ -8,7 +8,9 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.thinkme.utils.io.IOUtil;
 import com.thinkme.utils.io.URLResourceUtil;
+import com.thinkme.utils.number.NumberUtil;
 
 /**
  * 关于Properties的工具类
@@ -30,15 +32,15 @@ public class PropertiesUtil {
 	}
 
 	public static Integer getInt(Properties p, String name, Integer defaultValue) {
-		return com.thinkme.utils.number.NumberUtil.toIntObject(p.getProperty(name), defaultValue);
+		return NumberUtil.toIntObject(p.getProperty(name), defaultValue);
 	}
 
 	public static Long getLong(Properties p, String name, Long defaultValue) {
-		return com.thinkme.utils.number.NumberUtil.toLongObject(p.getProperty(name), defaultValue);
+		return NumberUtil.toLongObject(p.getProperty(name), defaultValue);
 	}
 
 	public static Double getDouble(Properties p, String name, Double defaultValue) {
-		return com.thinkme.utils.number.NumberUtil.toDoubleObject(p.getProperty(name), defaultValue);
+		return NumberUtil.toDoubleObject(p.getProperty(name), defaultValue);
 	}
 
 	public static String getString(Properties p, String name, String defaultValue) {
@@ -60,7 +62,7 @@ public class PropertiesUtil {
 		} catch (IOException e) {
 			logger.warn("Load property from " + generalPath + " fail ", e);
 		} finally {
-			com.thinkme.utils.io.IOUtil.closeQuietly(is);
+			IOUtil.closeQuietly(is);
 		}
 		return p;
 	}
@@ -75,7 +77,7 @@ public class PropertiesUtil {
 			p.load(reader);
 		} catch (IOException ignored) {
 		} finally {
-			com.thinkme.utils.io.IOUtil.closeQuietly(reader);
+			IOUtil.closeQuietly(reader);
 		}
 
 		return p;

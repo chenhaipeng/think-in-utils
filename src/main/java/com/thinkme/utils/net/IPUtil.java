@@ -1,14 +1,13 @@
 package com.thinkme.utils.net;
 
+import com.google.common.net.InetAddresses;
+import com.thinkme.utils.number.NumberUtil;
+import com.thinkme.utils.text.MoreStringUtil;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
-
-import com.thinkme.utils.number.NumberUtil;
-import com.thinkme.utils.text.MoreStringUtil;
-
-import com.google.common.net.InetAddresses;
 
 /**
  * InetAddress工具类，基于Guava的InetAddresses.

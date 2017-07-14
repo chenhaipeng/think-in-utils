@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.thinkme.utils.base.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -99,7 +100,7 @@ public class JsonMapper {
 	 * 
 	 * @see #fromJson(String, JavaType)
 	 */
-	public <T> T fromJson(@com.thinkme.utils.base.annotation.Nullable String jsonString, Class<T> clazz) {
+	public <T> T fromJson(@Nullable String jsonString, Class<T> clazz) {
 		if (StringUtils.isEmpty(jsonString)) {
 			return null;
 		}
@@ -117,7 +118,7 @@ public class JsonMapper {
 	 * 
 	 * @see #createCollectionType(Class, Class...)
 	 */
-	public <T> T fromJson(@com.thinkme.utils.base.annotation.Nullable String jsonString, JavaType javaType) {
+	public <T> T fromJson(@Nullable String jsonString, JavaType javaType) {
 		if (StringUtils.isEmpty(jsonString)) {
 			return null;
 		}

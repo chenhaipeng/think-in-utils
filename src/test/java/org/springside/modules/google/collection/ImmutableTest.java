@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
+import java.util.List;
+
 import static com.google.common.base.Predicates.equalTo;
 import static com.google.common.base.Predicates.or;
 import static com.google.common.collect.Collections2.filter;
@@ -21,10 +23,14 @@ public class ImmutableTest {
 	@Test
 	public void testImmutableList(){
 		ImmutableList<String> of = ImmutableList.of("a", "b", "c", "d");
-		System.out.println(of);
+//		of.add("e"); java.lang.UnsupportedOperationException
+		List list = of.asList();
+//		list.add("e");
+		System.out.println(list);
 		ImmutableMap<String,String> map = ImmutableMap.of("key1", "value1", "key2", "value2");
 		System.out.println(map);
 	}
+
 
 	@Test
 	public void testFilter(){

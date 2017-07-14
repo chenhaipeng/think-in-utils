@@ -1,8 +1,8 @@
 package com.thinkme.utils.io;
 
-import org.apache.commons.lang3.StringUtils;
 import com.thinkme.utils.base.Platforms;
 import com.thinkme.utils.text.MoreStringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.io.Files;
 

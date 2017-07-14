@@ -14,6 +14,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+import com.thinkme.utils.base.Platforms;
+import com.thinkme.utils.base.annotation.NotNull;
+import com.thinkme.utils.base.annotation.Nullable;
+import com.thinkme.utils.text.Charsets;
 
 import com.google.common.io.Files;
 
@@ -45,28 +49,28 @@ public class FileUtil {
 	 * 读取文件到String.
 	 */
 	public static String toString(final File file) throws IOException {
-		return Files.toString(file, com.thinkme.utils.text.Charsets.UTF_8);
+		return Files.toString(file, Charsets.UTF_8);
 	}
 
 	/**
 	 * 读取文件的每行内容到List<String>
 	 */
 	public static List<String> toLines(final File file) throws IOException {
-		return Files.readLines(file, com.thinkme.utils.text.Charsets.UTF_8);
+		return Files.readLines(file, Charsets.UTF_8);
 	}
 
 	/**
 	 * 简单写入String到File.
 	 */
 	public static void write(final CharSequence data, final File file) throws IOException {
-		Files.write(data, file, com.thinkme.utils.text.Charsets.UTF_8);
+		Files.write(data, file, Charsets.UTF_8);
 	}
 
 	/**
 	 * 追加String到File.
 	 */
 	public static void append(final CharSequence from, final File to) throws IOException {
-		Files.append(from, to, com.thinkme.utils.text.Charsets.UTF_8);
+		Files.append(from, to, Charsets.UTF_8);
 	}
 
 	/**
@@ -101,14 +105,14 @@ public class FileUtil {
 	 * 获取File的BufferedReader
 	 */
 	public static BufferedReader asBufferedReader(String fileName) throws FileNotFoundException {
-		return Files.newReader(getFileByPath(fileName), com.thinkme.utils.text.Charsets.UTF_8);
+		return Files.newReader(getFileByPath(fileName), Charsets.UTF_8);
 	}
 
 	/**
 	 * 获取File的BufferedWriter
 	 */
 	public static BufferedWriter asBufferedWriter(String fileName) throws FileNotFoundException {
-		return Files.newWriter(getFileByPath(fileName), com.thinkme.utils.text.Charsets.UTF_8);
+		return Files.newWriter(getFileByPath(fileName), Charsets.UTF_8);
 	}
 
 	///// 文件操作 /////
@@ -119,7 +123,7 @@ public class FileUtil {
 	 * @param from 如果为null，或者是不存在的文件或目录，抛出异常.
 	 * @param to 如果为null，或者from是目录而to是已存在文件，或相反
 	 */
-	public static void copy(@com.thinkme.utils.base.annotation.NotNull File from, @com.thinkme.utils.base.annotation.NotNull File to) throws IOException {
+	public static void copy(@NotNull File from, @NotNull File to) throws IOException {
 		Validate.notNull(from);
 		Validate.notNull(to);
 
@@ -136,7 +140,7 @@ public class FileUtil {
 	 * @param from 如果为nll，或文件不存在或者是目录，，抛出异常
 	 * @param to 如果to为null，或文件存在但是一个目录，抛出异常
 	 */
-	public static void copyFile(@com.thinkme.utils.base.annotation.NotNull File from, @com.thinkme.utils.base.annotation.NotNull File to) throws IOException {
+	public static void copyFile(@NotNull File from, @NotNull File to) throws IOException {
 		Validate.isTrue(isFileExists(from), from + " is not exist or not a file");
 		Validate.notNull(to);
 		Validate.isTrue(!FileUtil.isDirExists(to), to + " is exist but it is a dir");
@@ -146,7 +150,7 @@ public class FileUtil {
 	/**
 	 * 复制目录
 	 */
-	public static void copyDir(@com.thinkme.utils.base.annotation.NotNull File from, @com.thinkme.utils.base.annotation.NotNull File to) throws IOException {
+	public static void copyDir(@NotNull File from, @NotNull File to) throws IOException {
 		Validate.isTrue(isDirExists(from), from + " is not exist or not a dir");
 		Validate.notNull(to);
 
@@ -171,7 +175,7 @@ public class FileUtil {
 	/**
 	 * 文件移动/重命名.
 	 */
-	public static void moveFile(@com.thinkme.utils.base.annotation.NotNull File from, @com.thinkme.utils.base.annotation.NotNull File to) throws IOException {
+	public static void moveFile(@NotNull File from, @NotNull File to) throws IOException {
 		Validate.isTrue(isFileExists(from), from + " is not exist or not a file");
 		Validate.notNull(to);
 		Validate.isTrue(!isDirExists(to), to + " is  exist but it is a dir");
@@ -182,7 +186,7 @@ public class FileUtil {
 	/**
 	 * 目录移动/重命名
 	 */
-	public static void moveDir(@com.thinkme.utils.base.annotation.NotNull File from, @com.thinkme.utils.base.annotation.NotNull File to) throws IOException {
+	public static void moveDir(@NotNull File from, @NotNull File to) throws IOException {
 		Validate.isTrue(isDirExists(from), from + " is not exist or not a dir");
 		Validate.notNull(to);
 		Validate.isTrue(!isFileExists(to), to + " is exist but it is a file");
@@ -219,7 +223,7 @@ public class FileUtil {
 	 * 
 	 * 如果文件不存在或者是目录，则不做修改
 	 */
-	public static void deleteFile(@com.thinkme.utils.base.annotation.Nullable File file) throws IOException {
+	public static void deleteFile(@Nullable File file) throws IOException {
 		Validate.isTrue(isFileExists(file), file + " is not exist or not a file");
 		file.delete();
 	}
@@ -331,9 +335,9 @@ public class FileUtil {
 	/**
 	 * 获取文件名(不包含路径)
 	 */
-	public static String getFileName(@com.thinkme.utils.base.annotation.NotNull String fullName) {
+	public static String getFileName(@NotNull String fullName) {
 		Validate.notEmpty(fullName);
-		int last = fullName.lastIndexOf(com.thinkme.utils.base.Platforms.FILE_PATH_SEPARATOR_CHAR);
+		int last = fullName.lastIndexOf(Platforms.FILE_PATH_SEPARATOR_CHAR);
 		return fullName.substring(last + 1);
 	}
 

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.thinkme.utils.number.NumberUtil;
+
 /**
  * 关于系统Properties的工具类
  * 
@@ -80,14 +82,14 @@ public class SystemPropertiesUtil {
 	 * 读取Double类型的系统变量，为空时返回null.
 	 */
 	public static Double getDouble(String propertyName) {
-		return com.thinkme.utils.number.NumberUtil.toDoubleObject(System.getProperty(propertyName));
+		return NumberUtil.toDoubleObject(System.getProperty(propertyName));
 	}
 
 	/**
 	 * 读取Double类型的系统变量，为空时返回默认值.
 	 */
 	public static Double getDouble(String propertyName, Double defaultValue) {
-		Double propertyValue = com.thinkme.utils.number.NumberUtil.toDoubleObject(System.getProperty(propertyName));
+		Double propertyValue = NumberUtil.toDoubleObject(System.getProperty(propertyName));
 		return propertyValue != null ? propertyValue : defaultValue;
 	}
 
@@ -112,11 +114,11 @@ public class SystemPropertiesUtil {
 	 */
 	public static Integer getInteger(String propertyName, String envName, Integer defaultValue) {
 		checkEnvName(envName);
-		Integer propertyValue = com.thinkme.utils.number.NumberUtil.toIntObject(System.getProperty(propertyName));
+		Integer propertyValue = NumberUtil.toIntObject(System.getProperty(propertyName));
 		if (propertyValue != null) {
 			return propertyValue;
 		} else {
-			propertyValue = com.thinkme.utils.number.NumberUtil.toIntObject(System.getenv(envName));
+			propertyValue = NumberUtil.toIntObject(System.getenv(envName));
 			return propertyValue != null ? propertyValue : defaultValue;
 		}
 	}
@@ -126,11 +128,11 @@ public class SystemPropertiesUtil {
 	 */
 	public static Long getLong(String propertyName, String envName, Long defaultValue) {
 		checkEnvName(envName);
-		Long propertyValue = com.thinkme.utils.number.NumberUtil.toLongObject(System.getProperty(propertyName));
+		Long propertyValue = NumberUtil.toLongObject(System.getProperty(propertyName));
 		if (propertyValue != null) {
 			return propertyValue;
 		} else {
-			propertyValue = com.thinkme.utils.number.NumberUtil.toLongObject(System.getenv(envName));
+			propertyValue = NumberUtil.toLongObject(System.getenv(envName));
 			return propertyValue != null ? propertyValue : defaultValue;
 		}
 	}
@@ -140,11 +142,11 @@ public class SystemPropertiesUtil {
 	 */
 	public static Double getDouble(String propertyName, String envName, Double defaultValue) {
 		checkEnvName(envName);
-		Double propertyValue = com.thinkme.utils.number.NumberUtil.toDoubleObject(System.getProperty(propertyName));
+		Double propertyValue = NumberUtil.toDoubleObject(System.getProperty(propertyName));
 		if (propertyValue != null) {
 			return propertyValue;
 		} else {
-			propertyValue = com.thinkme.utils.number.NumberUtil.toDoubleObject(System.getenv(envName));
+			propertyValue = NumberUtil.toDoubleObject(System.getenv(envName));
 			return propertyValue != null ? propertyValue : defaultValue;
 		}
 	}
