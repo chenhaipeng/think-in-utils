@@ -136,12 +136,12 @@ public abstract class FastJsonUtil {
         }
     }
     /**
-     * 将JSON 格式的字符转换为集合
+     * 将JSON 格式的字符转换为泛型集合
      * @param content 字符串
-     * @param tTypeReference 元素类型  new TypeReference<Map<String, User>>() {};
+     * @param tTypeReference 元素类型  new TypeReference<Map<String, User>>() {}; new TypeReference<List<User>>() {};
      * @return
      */
-    public static <T> T string2Map(String content, TypeReference<T> tTypeReference){
+    public static <T> T string2Generic(String content, TypeReference<T> tTypeReference){
         try {
             return JSON.parseObject(content, tTypeReference);
         } catch (Exception e) {
