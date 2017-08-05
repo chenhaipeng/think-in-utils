@@ -5,12 +5,13 @@
  *******************************************************************************/
 package com.thinkme.utils.reflect;
 
-import static org.assertj.core.api.Assertions.*;
+import com.thinkme.utils.base.ExceptionUtil;
+import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.thinkme.utils.base.ExceptionUtil;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 public class ReflectionUtilTest {
 
@@ -18,15 +19,15 @@ public class ReflectionUtilTest {
 	public void getAndSetFieldValue() {
 		TestBean bean = new TestBean();
 		// 无需getter函数, 直接读取privateField
-		assertThat(ReflectionUtil.getFieldValue(bean, "privateField")).isEqualTo(1);
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.getFieldValue(bean, "privateField"))).isEqualTo(1);
 
 		// 先尝试getter函数, 然后直接读取privateField
-		assertThat(ReflectionUtil.getProperty(bean, "privateField")).isEqualTo(1);
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.getProperty(bean, "privateField"))).isEqualTo(1);
 
 		// 绕过将publicField+1的getter函数,直接读取publicField的原始值
-		assertThat(ReflectionUtil.getFieldValue(bean, "publicField")).isEqualTo(1);
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.getFieldValue(bean, "publicField"))).isEqualTo(1);
 		// 先尝试getter函数, 成功则补不直接读取publicField
-		assertThat(ReflectionUtil.getProperty(bean, "publicField")).isEqualTo(2);
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.getProperty(bean, "publicField"))).isEqualTo(2);
 
 		bean = new TestBean();
 		// 无需setter函数, 直接设置privateField
@@ -61,10 +62,10 @@ public class ReflectionUtilTest {
 	@Test
 	public void invokeGetterAndSetter() {
 		TestBean bean = new TestBean();
-		assertThat(ReflectionUtil.invokeGetter(bean, "publicField")).isEqualTo(bean.inspectPublicField() + 1);
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.invokeGetter(bean, "publicField"))).isEqualTo(bean.inspectPublicField() + 1);
 
 		MethodInvoker invoker = MethodInvoker.createGetter(TestBean.class, "publicField");
-		assertThat(invoker.invoke(bean)).isEqualTo(bean.inspectPublicField() + 1);
+		assertThat(java.util.Optional.ofNullable(invoker.invoke(bean))).isEqualTo(bean.inspectPublicField() + 1);
 
 		bean = new TestBean();
 		// 通过setter的函数将+1
@@ -80,19 +81,19 @@ public class ReflectionUtilTest {
 	public void invokeMethod() {
 		TestBean bean = new TestBean();
 		// 使用函数名+参数类型的匹配, 支持传参数
-		assertThat(ReflectionUtil.invokeMethod(bean, "privateMethod", new Object[] { "calvin" }))
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.invokeMethod(bean, "privateMethod", new Object[]{"calvin"})))
 				.isEqualTo("hello calvin");
 
 		// 使用函数名+参数类型的匹配
-		assertThat(ReflectionUtil.invokeMethod(bean, "privateMethod", new Object[] { "calvin" },
-				new Class[] { String.class })).isEqualTo("hello calvin");
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.invokeMethod(bean, "privateMethod", new Object[]{"calvin"},
+				new Class[]{String.class}))).isEqualTo("hello calvin");
 
 		// MethodInvoker
 		MethodInvoker invoker = MethodInvoker.createMethod(bean.getClass(), "privateMethod", String.class);
-		assertThat(invoker.invoke(bean, new Object[] { "calvin" })).isEqualTo("hello calvin");
+		assertThat(java.util.Optional.ofNullable(invoker.invoke(bean, new Object[]{"calvin"}))).isEqualTo("hello calvin");
 
 		// 仅匹配函数名
-		assertThat(ReflectionUtil.invokeMethodByName(bean, "privateMethod", new Object[] { "calvin" }))
+		assertThat(java.util.Optional.ofNullable(ReflectionUtil.invokeMethodByName(bean, "privateMethod", new Object[]{"calvin"})))
 				.isEqualTo("hello calvin");
 
 		// 函数名错

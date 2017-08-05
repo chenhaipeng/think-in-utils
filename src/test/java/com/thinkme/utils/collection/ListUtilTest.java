@@ -1,13 +1,13 @@
 package com.thinkme.utils.collection;
 
-import static org.assertj.core.api.Assertions.*;
+import com.google.common.collect.Ordering;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Test;
-
-import com.google.common.collect.Ordering;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class ListUtilTest {
 	@Test
@@ -93,7 +93,7 @@ public class ListUtilTest {
 		assertThat(ListUtil.getLast(list3)).isEqualTo("a");
 
 		assertThat(ListUtil.getFirst(list1)).isNull();
-		assertThat(ListUtil.getFirst(null)).isNull();
+		assertThat(java.util.Optional.ofNullable(ListUtil.getFirst(null))).isNull();
 	}
 
 	@Test
