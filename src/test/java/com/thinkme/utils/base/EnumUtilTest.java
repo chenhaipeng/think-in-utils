@@ -18,6 +18,7 @@ public class EnumUtilTest {
 	@Test
 	public void test() {
 		System.out.println(EnumUtil.generateBits(Options.class, Options.A));
+		System.out.println(EnumUtil.generateBits(Options.class, Options.C));
 		assertThat(EnumUtil.generateBits(Options.class, Options.A)).isEqualTo(1);
 		assertThat(EnumUtil.generateBits(Options.class, Options.A, Options.B,Options.D)).isEqualTo(11);
 

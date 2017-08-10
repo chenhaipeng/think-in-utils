@@ -25,6 +25,7 @@ public class CollectionUtilTest {
 		Set<String> set2 = SetUtil.newSortedSet();
 		set2.add("a");
 
+		//常用 
 		assertThat(CollectionUtil.isEmpty(list1)).isTrue();
 		assertThat(CollectionUtil.isEmpty(null)).isTrue();
 		assertThat(CollectionUtil.isEmpty(list2)).isFalse();

@@ -93,7 +93,7 @@ public class ListUtilTest {
 		assertThat(ListUtil.getLast(list3)).isEqualTo("a");
 
 		assertThat(ListUtil.getFirst(list1)).isNull();
-		assertThat(java.util.Optional.ofNullable(ListUtil.getFirst(null))).isNull();
+		assertThat(java.util.Optional.ofNullable(ListUtil.getFirst(null)).isPresent()).isFalse();
 	}
 
 	@Test

@@ -1,15 +1,15 @@
 package com.thinkme.utils.collection;
 
-import static org.assertj.core.api.Assertions.*;
+import com.google.common.collect.Ordering;
+import com.thinkme.utils.collection.type.ConcurrentHashSet;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.thinkme.utils.collection.type.ConcurrentHashSet;
-import org.junit.Test;
-
-import com.google.common.collect.Ordering;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class SetUtilTest {
 
@@ -30,6 +30,7 @@ public class SetUtilTest {
 
 		TreeSet<String> set6 = SetUtil.newSortedSet(Ordering.natural());
 
+		//good
 		ConcurrentHashSet set7 = SetUtil.newConcurrentHashSet();
 	}
 

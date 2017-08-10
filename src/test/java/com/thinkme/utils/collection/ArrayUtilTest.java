@@ -1,12 +1,13 @@
 package com.thinkme.utils.collection;
 
-import static org.assertj.core.api.Assertions.*;
+import com.thinkme.utils.number.RandomUtil;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import com.thinkme.utils.number.RandomUtil;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class ArrayUtilTest {
 
@@ -23,6 +24,9 @@ public class ArrayUtilTest {
 	}
 
 	@Test
+	/**
+	 * 注意asList是不可以再add，是一个不可变的List
+	 */
 	public void asList() {
 		List<String> list = ArrayUtil.asList("d", "a", "c", "b", "e", "i", "g");
 		assertThat(list).hasSize(7).containsExactly("d", "a", "c", "b", "e", "i", "g");
