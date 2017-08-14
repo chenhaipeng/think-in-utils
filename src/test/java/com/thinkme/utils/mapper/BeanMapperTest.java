@@ -1,13 +1,13 @@
 package com.thinkme.utils.mapper;
 
-import static org.assertj.core.api.Assertions.*;
+import com.thinkme.utils.collection.ListUtil;
+import com.thinkme.utils.json.FastJsonUtil;
+import ma.glasnost.orika.metadata.Type;
+import org.junit.Test;
 
 import java.util.List;
 
-import com.thinkme.utils.collection.ListUtil;
-import org.junit.Test;
-
-import ma.glasnost.orika.metadata.Type;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BeanMapperTest {
 
@@ -26,11 +26,25 @@ public class BeanMapperTest {
 		Type<Student> studentType = BeanMapper.getType(Student.class);
 		Type<StudentVO> studentVoType = BeanMapper.getType(StudentVO.class);
 		studentVo = BeanMapper.map(student, studentType, studentVoType);
+		//是否是浅copy
+		student.setName("chen");
 
 		assertThat(studentVo.name).isEqualTo("zhang3");
 		assertThat(studentVo.getAge()).isEqualTo(20);
 		assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
 		assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
+
+		//是否null空值覆盖
+		Student student2 = new Student(null, 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
+		StudentVO studentVO2 = new StudentVO();
+		studentVO2.setName("xxx");
+		studentVO2 = BeanMapper.map(student2,StudentVO.class);
+
+		//注意BeanUtils 的类型copy，需要属性一一对应，总体来说BeanMapper的功能更优
+//		BeanUtils.fastCopyProperties(student2,studentVO2);
+//		BeanUtils.copyNotNullProperties(student2,studentVO2);
+		System.out.println(FastJsonUtil.object2String(studentVO2));
+		assertThat(studentVO2.getName()).isNull();
 	}
 
 	@Test
@@ -134,6 +148,13 @@ public class BeanMapperTest {
 			this.teacher = teacher;
 		}
 
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
 	}
 
 	public static class Teacher {
@@ -167,6 +188,9 @@ public class BeanMapperTest {
 			this.course = course;
 		}
 
+		public StudentVO() {
+		}
+
 		public List<String> getCourse() {
 			return course;
 		}
@@ -191,6 +215,13 @@ public class BeanMapperTest {
 			this.teacher = teacher;
 		}
 
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
 	}
 
 	public static class TeacherVO {

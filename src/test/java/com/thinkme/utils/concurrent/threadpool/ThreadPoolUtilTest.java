@@ -5,21 +5,16 @@
  *******************************************************************************/
 package com.thinkme.utils.concurrent.threadpool;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.thinkme.utils.concurrent.ThreadUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springside.modules.test.log.LogbackListAppender;
+
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ThreadPoolUtilTest {
 	@Test
@@ -95,6 +90,9 @@ public class ThreadPoolUtilTest {
 		ThreadPoolUtil.gracefulShutdown(null, 1000, TimeUnit.MILLISECONDS);
 	}
 
+	/**
+	 * 用户没有捕捉异常导致中断了线程池中的线程, 使得SchedulerService无法继续执行.
+	 */
 	@Test
 	public void wrapException() {
 		ScheduledThreadPoolExecutor executor = ThreadPoolBuilder.scheduledPool().build();
@@ -105,6 +103,7 @@ public class ThreadPoolUtilTest {
 
 		// 线程第一次跑就被中断
 		assertThat(task.counter.get()).isEqualTo(1);
+		System.out.println("-------actual run:" + task.counter.get());
 		ThreadPoolUtil.gracefulShutdown(executor, 1000);
 
 		////////
@@ -115,7 +114,7 @@ public class ThreadPoolUtilTest {
 
 		ThreadUtil.sleep(500);
 		assertThat(newTask.counter.get()).isGreaterThan(2);
-		System.out.println("-------actual run:" + task.counter.get());
+		System.out.println("newTask-------actual run:" + newTask.counter.get());
 		ThreadPoolUtil.gracefulShutdown(executor, 1000);
 
 	}

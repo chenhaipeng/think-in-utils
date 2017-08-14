@@ -1,12 +1,13 @@
 package com.thinkme.utils.io;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class URLResourceTest {
 

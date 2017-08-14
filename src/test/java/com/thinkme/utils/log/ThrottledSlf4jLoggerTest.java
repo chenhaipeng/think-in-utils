@@ -1,16 +1,17 @@
 package com.thinkme.utils.log;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.concurrent.TimeUnit;
-
+import com.thinkme.utils.time.ClockUtil;
+import com.thinkme.utils.time.ClockUtil.DummyClock;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springside.modules.test.log.LogbackListAppender;
-import com.thinkme.utils.time.ClockUtil;
-import com.thinkme.utils.time.ClockUtil.DummyClock;
 
+import java.util.concurrent.TimeUnit;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+//针对于时间间隔而不是打印的key
 public class ThrottledSlf4jLoggerTest {
 
 	@Test
@@ -27,6 +28,10 @@ public class ThrottledSlf4jLoggerTest {
 
 			// still 1
 			logger.warn("haha {}", 1);
+			assertThat(appender.getLogsCount()).isEqualTo(1);
+
+			//other
+			logger.warn("test {}",1);
 			assertThat(appender.getLogsCount()).isEqualTo(1);
 
 			// still 1

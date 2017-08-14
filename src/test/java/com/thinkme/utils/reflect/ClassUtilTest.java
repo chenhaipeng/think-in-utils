@@ -1,11 +1,11 @@
 package com.thinkme.utils.reflect;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.Test;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ClassUtilTest {
 
@@ -17,11 +17,12 @@ public class ClassUtilTest {
 		assertThat(ClassUtil.getShortClassName(ClassUtilTest.class.getName())).isEqualTo("ClassUtilTest");
 		assertThat(ClassUtil.getShortClassName(BClass.class.getName())).isEqualTo("ClassUtilTest.BClass");
 
-		assertThat(ClassUtil.getPackageName(ClassUtilTest.class)).isEqualTo("org.springside.modules.utils.reflect");
-		assertThat(ClassUtil.getPackageName(BClass.class)).isEqualTo("org.springside.modules.utils.reflect");
+//		assertThat(ClassUtil.getPackageName(ClassUtilTest.class)).isEqualTo("org.springside.modules.utils.reflect");
+		assertThat(ClassUtil.getPackageName(ClassUtilTest.class)).isEqualTo("com.thinkme.utils.reflect");
+		assertThat(ClassUtil.getPackageName(BClass.class)).isEqualTo("com.thinkme.utils.reflect");
 		assertThat(ClassUtil.getPackageName(ClassUtilTest.class.getName()))
-				.isEqualTo("org.springside.modules.utils.reflect");
-		assertThat(ClassUtil.getPackageName(BClass.class.getName())).isEqualTo("org.springside.modules.utils.reflect");
+				.isEqualTo("com.thinkme.utils.reflect");
+		assertThat(ClassUtil.getPackageName(BClass.class.getName())).isEqualTo("com.thinkme.utils.reflect");
 
 	}
 

@@ -1,5 +1,10 @@
 package com.thinkme.utils.io;
 
+import com.google.common.io.Resources;
+import com.thinkme.utils.collection.ListUtil;
+import com.thinkme.utils.reflect.ClassUtil;
+import com.thinkme.utils.text.Charsets;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -7,18 +12,12 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import com.thinkme.utils.collection.ListUtil;
-import com.thinkme.utils.reflect.ClassUtil;
-import com.thinkme.utils.text.Charsets;
-
-import com.google.common.io.Resources;
-
 /**
  * 针对Jar包内的文件的工具类.
  * 
  * 1.ClassLoader
  * 
- * 不指定contextClas时，优先使用Thread.getContextClassLoader()， 如果未设置则使用Guava Resources的ClassLoader
+ * 不指定contextClass时，优先使用Thread.getContextClassLoader()， 如果未设置则使用Guava Resources的ClassLoader
  * 
  * 指定contextClass，则直接使用该contextClass的ClassLoader.
  * 
