@@ -1,14 +1,15 @@
 package com.thinkme.utils.concurrent;
 
-import static org.assertj.core.api.Assertions.*;
+import com.thinkme.utils.base.ExceptionUtil;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.thinkme.utils.base.ExceptionUtil;
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class BasicFutureTest {
 
@@ -55,7 +56,7 @@ public class BasicFutureTest {
 		// 无人设置返回值
 		try {
 			MyFuture<String> future2 = new MyFuture<String>();
-			future2.get(10, TimeUnit.MILLISECONDS);
+			future2.get(10, TimeUnit.SECONDS);
 			fail("should fail before");
 		} catch (TimeoutException e) {
 			assertThat(e).isInstanceOf(TimeoutException.class);

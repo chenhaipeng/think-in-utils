@@ -18,6 +18,9 @@ import java.util.Map;
 
 /**
  * JSON 转换相关的工具类 注意,Map的Key只能为简单类型 ,不可采用复杂类型.
+ * @author chenhaipeng
+ * @version 1.0
+ * @date 2016/03/17 15:42
  */
 @SuppressWarnings("unchecked")
 public abstract class JsonUtils {

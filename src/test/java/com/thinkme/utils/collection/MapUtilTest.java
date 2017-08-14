@@ -1,6 +1,8 @@
 package com.thinkme.utils.collection;
 
-import static org.assertj.core.api.Assertions.*;
+import com.google.common.collect.Ordering;
+import com.thinkme.utils.collection.MapUtil.ValueCreator;
+import org.junit.Test;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -9,10 +11,8 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-import org.junit.Test;
-import com.thinkme.utils.collection.MapUtil.ValueCreator;
-
-import com.google.common.collect.Ordering;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class MapUtilTest {
 
@@ -123,6 +123,8 @@ public class MapUtilTest {
 		initExpireKeyMap(weakKeyMap2, value);
 		System.gc();
 		assertThat(weakKeyMap2.get(new MyBean("A"))).isNull();
+		System.out.println(weakKeyMap2.size());
+		assertThat(weakKeyMap2).hasSize(1); // key仍然在?
 
 		ConcurrentMap<MyBean, MyBean> weakKeyMap3 = MapUtil.createWeakKeyConcurrentHashMap(10, 1);
 		MyBean key = new MyBean("A");
@@ -149,7 +151,7 @@ public class MapUtilTest {
 		assertThat(weakValueMap3.get(new MyBean("A"))).isNull();
 	}
 
-	// 抽出子函数，使得Key/Value的生命周琦过期
+	// 抽出子函数，使得Key/Value的生命周期过期
 	private void initExpireAllMap(ConcurrentMap<MyBean, MyBean> weakKeyMap) {
 		MyBean key = new MyBean("A");
 		MyBean value = new MyBean("B");

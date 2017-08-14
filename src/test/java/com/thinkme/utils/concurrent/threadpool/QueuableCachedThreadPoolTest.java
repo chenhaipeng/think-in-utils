@@ -1,12 +1,13 @@
 package com.thinkme.utils.concurrent.threadpool;
 
-import static org.assertj.core.api.Assertions.*;
+import com.thinkme.utils.concurrent.ThreadUtil;
+import org.junit.Test;
 
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import com.thinkme.utils.concurrent.ThreadUtil;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class QueuableCachedThreadPoolTest {
 
@@ -23,12 +24,13 @@ public class QueuableCachedThreadPoolTest {
 		try {
 			threadPool = ThreadPoolBuilder.queuableCachedPool().setMinSize(0).setMaxSize(10).setQueueSize(10).build();
 			// 线程满
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 11; i++) {
 				threadPool.submit(new LongRunTask());
 			}
 
 			assertThat(threadPool.getActiveCount()).isEqualTo(10);
-			assertThat(threadPool.getQueue().size()).isEqualTo(0);
+			//大于线程池数据进queue
+			assertThat(threadPool.getQueue().size()).isEqualTo(1);
 
 			// queue 满
 			for (int i = 0; i < 10; i++) {

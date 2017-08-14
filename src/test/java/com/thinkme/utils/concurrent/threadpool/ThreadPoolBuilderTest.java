@@ -1,16 +1,11 @@
 package com.thinkme.utils.concurrent.threadpool;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import org.junit.Test;
 import com.thinkme.utils.concurrent.threadpool.QueuableCachedThreadPool.ControllableQueue;
+import org.junit.Test;
+
+import java.util.concurrent.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ThreadPoolBuilderTest {
 
@@ -85,6 +80,7 @@ public class ThreadPoolBuilderTest {
 
 			@Override
 			public void run() {
+				System.out.println("hello cachedPool");
 			}
 		});
 		assertThat(thread.getName()).startsWith("cachedPool");

@@ -1,6 +1,6 @@
 package com.thinkme.utils.collection;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.Test;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class QueueUtilTest {
 
@@ -20,13 +20,14 @@ public class QueueUtilTest {
 		ArrayDeque<String> queue1 = QueueUtil.newArrayDeque(16);
 		LinkedList<String> queue2 = QueueUtil.newLinkedDeque();
 
+		//good ，平时应该使用currentNonBlockingQueue 代替LinkBlockingQueue
 		ConcurrentLinkedQueue<String> queue3 = QueueUtil.newConcurrentNonBlockingQueue();
 		Deque<String> queue7 = QueueUtil.newConcurrentNonBlockingDeque();
 
 		LinkedBlockingQueue<String> queue4 = QueueUtil.newBlockingUnlimitQueue();
 		LinkedBlockingDeque<String> queue8 = QueueUtil.newBlockingUnlimitDeque();
 
-		LinkedBlockingQueue<String> queue5 = QueueUtil.newLinkedBlockingQeque(100);
+		LinkedBlockingQueue<String> queue5 = QueueUtil.newLinkedBlockingQueue(100);
 		ArrayBlockingQueue<String> queue6 = QueueUtil.newArrayBlockingQueue(100);
 		LinkedBlockingDeque<String> queue9 = QueueUtil.newBlockingDeque(100);
 	}
