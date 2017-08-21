@@ -18,22 +18,18 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
-            <version>${httpclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpasyncclient</artifactId>
-            <version>4.1</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
         </dependency>
 
         <!-- UTILS begin -->
@@ -41,19 +37,16 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-chain</groupId>
             <artifactId>commons-chain</artifactId>
-            <version>1.2</version>
         </dependency>
         <!-- UTILS end -->
 
@@ -61,7 +54,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <!-- LOGGING end -->
 
@@ -70,7 +62,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -78,7 +69,6 @@
         <dependency>
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
-            <version>${orika.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -86,7 +76,6 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>${cglib.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.ant</groupId>
@@ -109,34 +98,29 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.34</version>
         </dependency>
 
         <!-- TEST begin -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -144,40 +128,34 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/cglib/cglib -->
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>3.2.5</version>
         </dependency>
 
         <!-- only for XMLMapper test -->
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
-            <version>1.1.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.3.4.RELEASE</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
