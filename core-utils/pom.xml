@@ -32,6 +32,11 @@
             <artifactId>log4j</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+
         <!-- UTILS begin -->
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
