@@ -3,17 +3,22 @@ package com.thinkme.utils.apache.codec;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
+import sun.misc.BASE64Decoder;
+
+import java.io.IOException;
 
 public class EncryptionUtils {
 
 
 	@Test
-	public void test() {
+	public void test() throws IOException {
 		String base64 = base64Encode("ricky");
 		System.out.println("base64 encode=" + base64);
 
 		byte[] buf = base64Decode(base64);
 		System.out.println("base64 decode=" + new String(buf));
+		BASE64Decoder base64Decoder = new BASE64Decoder();
+		System.out.println("base64 decode2=" + new String(base64Decoder.decodeBuffer(base64)));
 
 		String md5 = md5("ricky");
 		System.out.println("md5=" + md5 + "**len=" + md5.length());

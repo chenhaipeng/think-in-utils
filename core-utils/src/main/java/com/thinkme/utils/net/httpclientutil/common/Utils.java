@@ -1,17 +1,5 @@
 package com.thinkme.utils.net.httpclientutil.common;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,7 +12,16 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
+import java.util.*;
+import java.util.Map.Entry;
 
 /** 
  * 工具类
@@ -51,7 +48,7 @@ public class Utils {
 	 * 是否开启debug，
 	 */
 	private static boolean debug = false;
-	private static final Logger logger = Logger.getLogger("HttpClient(异步)工具类");
+	private static final Logger logger = LoggerFactory.getLogger("HttpClient(异步)工具类");
 
 	/**
 	 * 检测url是否含有参数，如果有，则把参数加到参数列表中
@@ -272,7 +269,7 @@ public class Utils {
 	 * @param t
 	 */
 	public static void exception(Throwable t){
-		logger.error(t);
+		logger.error("",t);
 	}
 
 	/**
