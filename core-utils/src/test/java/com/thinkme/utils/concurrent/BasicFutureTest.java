@@ -13,71 +13,71 @@ import static org.assertj.core.api.Assertions.fail;
 
 public class BasicFutureTest {
 
-	public static class MyFuture<T> extends BasicFuture<T> {
+    @Test
+    public void test() throws InterruptedException, ExecutionException {
+        MyFuture<String> future = new MyFuture<String>();
+        Tasks.success(future);
+        String result = future.get();
+        assertThat(result).isEqualTo("haha");
 
-		@Override
-		protected void onCompleted(T result) {
-			System.out.println("onCompleted:" + result);
-		}
+        // 无人设置返回值
+        try {
+            MyFuture<String> future2 = new MyFuture<String>();
+            future2.get(10, TimeUnit.SECONDS);
+            fail("should fail before");
+        } catch (TimeoutException e) {
+            assertThat(e).isInstanceOf(TimeoutException.class);
+        }
 
-		@Override
-		protected void onFailed(Exception ex) {
-			System.out.println("onFailed:" + ex.getMessage());
-		}
+        // 失败
+        try {
+            MyFuture<String> future3 = new MyFuture<String>();
+            Tasks.fail(future3);
+            future3.get();
+            fail("should fail before");
+        } catch (Throwable t) {
+            Assertions.assertThat(ExceptionUtil.unwrap(t)).hasMessage("wuwu");
+        }
 
-		@Override
-		protected void onCancelled() {
-			System.out.println("onCancelled");
-		}
-	}
+        // 取消
+        MyFuture<String> future4 = new MyFuture<String>();
+        Tasks.cancel(future4);
+        String result4 = future4.get();
+        assertThat(result4).isNull();
+        assertThat(future4.isCancelled()).isTrue();
+    }
 
-	private static class Tasks {
+    public static class MyFuture<T> extends BasicFuture<T> {
 
-		public static void success(MyFuture<String> future) {
-			future.completed("haha");
-		}
+        @Override
+        protected void onCompleted(T result) {
+            System.out.println("onCompleted:" + result);
+        }
 
-		public static void fail(MyFuture<String> future) {
-			future.failed(new RuntimeException("wuwu"));
-		}
+        @Override
+        protected void onFailed(Exception ex) {
+            System.out.println("onFailed:" + ex.getMessage());
+        }
 
-		public static void cancel(MyFuture<String> future) {
-			future.cancel(true);
-		}
-	}
+        @Override
+        protected void onCancelled() {
+            System.out.println("onCancelled");
+        }
+    }
 
-	@Test
-	public void test() throws InterruptedException, ExecutionException {
-		MyFuture<String> future = new MyFuture<String>();
-		Tasks.success(future);
-		String result = future.get();
-		assertThat(result).isEqualTo("haha");
+    private static class Tasks {
 
-		// 无人设置返回值
-		try {
-			MyFuture<String> future2 = new MyFuture<String>();
-			future2.get(10, TimeUnit.SECONDS);
-			fail("should fail before");
-		} catch (TimeoutException e) {
-			assertThat(e).isInstanceOf(TimeoutException.class);
-		}
+        public static void success(MyFuture<String> future) {
+            future.completed("haha");
+        }
 
-		// 失败
-		try {
-			MyFuture<String> future3 = new MyFuture<String>();
-			Tasks.fail(future3);
-			future3.get();
-			fail("should fail before");
-		} catch (Throwable t) {
-			Assertions.assertThat(ExceptionUtil.unwrap(t)).hasMessage("wuwu");
-		}
+        public static void fail(MyFuture<String> future) {
+            future.failed(new RuntimeException("wuwu"));
+        }
 
-		// 取消
-		MyFuture<String> future4 = new MyFuture<String>();
-		Tasks.cancel(future4);
-		String result4 = future4.get();
-		assertThat(result4).isNull();
-		assertThat(future4.isCancelled()).isTrue();
-	}
+        public static void cancel(MyFuture<String> future) {
+            future.cancel(true);
+        }
+    }
 
 }

@@ -11,6 +11,6 @@ import org.junit.runners.Suite;
         CommonIdGeneratorTest.class,
         HostNameIdGeneratorTest.class,
         IPIdGeneratorTest.class
-    })
+})
 public class AllTest {
 }

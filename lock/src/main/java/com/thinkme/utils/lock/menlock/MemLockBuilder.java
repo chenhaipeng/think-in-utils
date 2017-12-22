@@ -20,7 +20,7 @@ public final class MemLockBuilder {
 
     public MemLockBuilder lockKey(String lockKey) {
         // 为了保持jar的依赖简单，不引入guava
-        if(null == lockKey || lockKey.isEmpty()){
+        if (null == lockKey || lockKey.isEmpty()) {
             throw new IllegalArgumentException("lockKey cannot be empty.");
         }
 

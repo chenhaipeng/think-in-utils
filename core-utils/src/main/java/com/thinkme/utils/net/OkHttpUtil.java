@@ -56,7 +56,7 @@ public final class OkHttpUtil {
      */
     public static Response get(String url, int readTimeoutInMillis) throws IOException {
         Validate.notEmpty(url, "url can not be null.");
-        Validate.validState(readTimeoutInMillis >= 0,"timeoutInMillis is illegal.");
+        Validate.validState(readTimeoutInMillis >= 0, "timeoutInMillis is illegal.");
 
         OkHttpClient newClient = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_CONNECTION_TIMEOUT, TimeUnit.SECONDS)
@@ -70,7 +70,7 @@ public final class OkHttpUtil {
     /**
      * post表单
      *
-     * @param url 请求地址
+     * @param url    请求地址
      * @param params 表单数据
      * @return 响应对象
      * @throws IOException io异常
@@ -83,15 +83,15 @@ public final class OkHttpUtil {
     /**
      * post表单
      *
-     * @param url 请求地址
-     * @param params 表单数据
+     * @param url                 请求地址
+     * @param params              表单数据
      * @param readTimeoutInMillis 读超时时间，单位微秒
      * @return 响应对象
      * @throws IOException io异常
      */
     public static Response post(String url, Map<String, String> params, int readTimeoutInMillis) throws IOException {
         Validate.notEmpty(params, "form body can not be null.");
-        Validate.validState(readTimeoutInMillis >= 0,"timeoutInMillis is illegal.");
+        Validate.validState(readTimeoutInMillis >= 0, "timeoutInMillis is illegal.");
 
         OkHttpClient newClient = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_CONNECTION_TIMEOUT, TimeUnit.SECONDS)
@@ -104,7 +104,7 @@ public final class OkHttpUtil {
     /**
      * post json
      *
-     * @param url 请求地址
+     * @param url  请求地址
      * @param json json
      * @return 返回
      * @throws IOException io异常
@@ -116,8 +116,8 @@ public final class OkHttpUtil {
     /**
      * post json
      *
-     * @param url 请求地址
-     * @param json json
+     * @param url                 请求地址
+     * @param json                json
      * @param readTimeoutInMillis 读超时，单位微秒
      * @return 响应对象
      * @throws IOException io异常

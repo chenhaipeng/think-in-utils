@@ -24,28 +24,6 @@ import java.util.Map;
 public interface LongObjectMap<V> extends Map<Long, V> {
 
     /**
-     * A primitive entry in the map, provided by the iterator from {@link #entries()}
-     *
-     * @param <V> the value type stored in the map.
-     */
-    interface PrimitiveEntry<V> {
-        /**
-         * Gets the key for this entry.
-         */
-        long key();
-
-        /**
-         * Gets the value for this entry.
-         */
-        V value();
-
-        /**
-         * Sets the value for this entry.
-         */
-        void setValue(V value);
-    }
-
-    /**
      * Gets the value in the map with the specified key.
      *
      * @param key the key whose associated value is to be returned.
@@ -56,7 +34,7 @@ public interface LongObjectMap<V> extends Map<Long, V> {
     /**
      * Puts the given entry into the map.
      *
-     * @param key the key of the entry.
+     * @param key   the key of the entry.
      * @param value the value of the entry.
      * @return the previous value for this key or {@code null} if there was no previous mapping.
      */
@@ -81,4 +59,26 @@ public interface LongObjectMap<V> extends Map<Long, V> {
      * Indicates whether or not this map contains a value for the specified key.
      */
     boolean containsKey(long key);
+
+    /**
+     * A primitive entry in the map, provided by the iterator from {@link #entries()}
+     *
+     * @param <V> the value type stored in the map.
+     */
+    interface PrimitiveEntry<V> {
+        /**
+         * Gets the key for this entry.
+         */
+        long key();
+
+        /**
+         * Gets the value for this entry.
+         */
+        V value();
+
+        /**
+         * Sets the value for this entry.
+         */
+        void setValue(V value);
+    }
 }

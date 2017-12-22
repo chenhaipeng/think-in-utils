@@ -1,7 +1,7 @@
 package com.thinkme.utils.apache.beanutils;
 
 public class BenchmarkTest {
-	private int count;
+    private int count;
 
     public BenchmarkTest(int count) {
         this.count = count;

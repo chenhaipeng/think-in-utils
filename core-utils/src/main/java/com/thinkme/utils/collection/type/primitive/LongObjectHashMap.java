@@ -14,22 +14,15 @@
  */
 package com.thinkme.utils.collection.type.primitive;
 
-import java.util.AbstractCollection;
-import java.util.AbstractSet;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
 import com.thinkme.utils.number.MathUtil;
+
+import java.util.*;
 
 /**
  * 移植Netty 4.1.6的Key为原子类型的集合类, 在数据结构上与HashMap不一样，空间占用与读写性能俱比原来更优.
- * 
+ * <p>
  * 原子类型集合类有多个实现，选择Netty是因为有在实战中使用.
- * 
+ * <p>
  * A hash map implementation of {@link LongObjectMap} that uses open addressing for keys.
  * To minimize the memory footprint, this class uses open addressing rather than chaining.
  * Collisions are resolved using linear probing. Deletions implement compaction, so cost of
@@ -39,10 +32,14 @@ import com.thinkme.utils.number.MathUtil;
  */
 public class LongObjectHashMap<V> implements LongObjectMap<V> {
 
-    /** Default initial capacity. Used if not specified in the constructor */
+    /**
+     * Default initial capacity. Used if not specified in the constructor
+     */
     public static final int DEFAULT_CAPACITY = 8;
 
-    /** Default load factor. Used if not specified in the constructor */
+    /**
+     * Default load factor. Used if not specified in the constructor
+     */
     public static final float DEFAULT_LOAD_FACTOR = 0.5f;
 
     /**
@@ -50,18 +47,10 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
      * (Better than using a placeholder for available: less references for GC processing.)
      */
     private static final Object NULL_VALUE = new Object();
-
-    /** The maximum number of elements allowed without allocating more space. */
-    private int maxSize;
-
-    /** The load factor for the map. Used to calculate {@link #maxSize}. */
+    /**
+     * The load factor for the map. Used to calculate {@link #maxSize}.
+     */
     private final float loadFactor;
-
-    private long[] keys;
-    private V[] values;
-    private int size;
-    private int mask;
-
     private final Set<Long> keySet = new KeySet();
     private final Set<Entry<Long, V>> entrySet = new EntrySet();
     private final Iterable<PrimitiveEntry<V>> entries = new Iterable<PrimitiveEntry<V>>() {
@@ -70,6 +59,14 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
             return new PrimitiveIterator();
         }
     };
+    /**
+     * The maximum number of elements allowed without allocating more space.
+     */
+    private int maxSize;
+    private long[] keys;
+    private V[] values;
+    private int size;
+    private int mask;
 
     public LongObjectHashMap() {
         this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
@@ -94,7 +91,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
 
         // Allocate the arrays.
         keys = new long[capacity];
-        @SuppressWarnings({ "unchecked" })
+        @SuppressWarnings({"unchecked"})
         V[] temp = (V[]) new Object[capacity];
         values = temp;
 
@@ -111,6 +108,13 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         return value == null ? (T) NULL_VALUE : value;
     }
 
+    /**
+     * Returns the hash code for the key.
+     */
+    private static int hashCode(long key) {
+        return (int) (key ^ (key >>> 32));
+    }
+
     @Override
     public V get(long key) {
         int index = indexOf(key);
@@ -122,7 +126,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         int startIndex = hashIndex(key);
         int index = startIndex;
 
-        for (;;) {
+        for (; ; ) {
             if (values[index] == null) {
                 // Found empty slot, use it.
                 keys[index] = key;
@@ -343,7 +347,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         int startIndex = hashIndex(key);
         int index = startIndex;
 
-        for (;;) {
+        for (; ; ) {
             if (values[index] == null) {
                 // It's available, so no chance that this value exists anywhere in the map.
                 return -1;
@@ -368,13 +372,6 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
     }
 
     /**
-     * Returns the hash code for the key.
-     */
-    private static int hashCode(long key) {
-       return (int) (key ^ (key >>> 32));
-    }
-
-    /**
      * Get the next sequential index after {@code index} and wraps if necessary.
      */
     private int probeNext(int index) {
@@ -389,7 +386,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         size++;
 
         if (size > maxSize) {
-            if(keys.length == Integer.MAX_VALUE) {
+            if (keys.length == Integer.MAX_VALUE) {
                 throw new IllegalStateException("Max capacity reached at size=" + size);
             }
 
@@ -422,7 +419,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         for (int i = probeNext(index); values[i] != null; i = probeNext(i)) {
             int bucket = hashIndex(keys[i]);
             if (i < bucket && (bucket <= nextFree || nextFree <= i) ||
-                bucket <= nextFree && nextFree <= i) {
+                    bucket <= nextFree && nextFree <= i) {
                 // Move the displaced entry "back" to the first available position.
                 keys[nextFree] = keys[i];
                 values[nextFree] = values[i];
@@ -455,7 +452,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         V[] oldVals = values;
 
         keys = new long[newCapacity];
-        @SuppressWarnings({ "unchecked"})
+        @SuppressWarnings({"unchecked"})
         V[] temp = (V[]) new Object[newCapacity];
         values = temp;
 
@@ -471,7 +468,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
                 long oldKey = oldKeys[i];
                 int index = hashIndex(oldKey);
 
-                for (;;) {
+                for (; ; ) {
                     if (values[index] == null) {
                         keys[index] = oldKey;
                         values[index] = oldVal;
@@ -500,7 +497,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
                     sb.append(", ");
                 }
                 sb.append(keyToString(keys[i])).append('=').append(value == this ? "(this Map)" :
-                    toExternal(value));
+                        toExternal(value));
                 first = false;
             }
         }
@@ -552,7 +549,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         @Override
         public boolean retainAll(Collection<?> retainedKeys) {
             boolean changed = false;
-            for(Iterator<PrimitiveEntry<V>> iter = entries().iterator(); iter.hasNext(); ) {
+            for (Iterator<PrimitiveEntry<V>> iter = entries().iterator(); iter.hasNext(); ) {
                 PrimitiveEntry<V> entry = iter.next();
                 if (!retainedKeys.contains(entry.key())) {
                     changed = true;
@@ -599,7 +596,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
         private int entryIndex = -1;
 
         private void scanNext() {
-            for (;;) {
+            for (; ; ) {
                 if (++nextIndex == values.length || values[nextIndex] != null) {
                     break;
                 }

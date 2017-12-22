@@ -10,47 +10,47 @@ import java.io.IOException;
 public class EncryptionUtils {
 
 
-	@Test
-	public void test() throws IOException {
-		String base64 = base64Encode("ricky");
-		System.out.println("base64 encode=" + base64);
+    public static String base64Encode(String data) {
 
-		byte[] buf = base64Decode(base64);
-		System.out.println("base64 decode=" + new String(buf));
-		BASE64Decoder base64Decoder = new BASE64Decoder();
-		System.out.println("base64 decode2=" + new String(base64Decoder.decodeBuffer(base64)));
+        return Base64.encodeBase64String(data.getBytes());
+    }
 
-		String md5 = md5("ricky");
-		System.out.println("md5=" + md5 + "**len=" + md5.length());
+    public static byte[] base64Decode(String data) {
 
-		String sha1 = sha1("test");
-		System.out.println("sha1=" + sha1 + "**len=" + sha1.length());
-	}
+        return Base64.decodeBase64(data.getBytes());
+    }
 
-	public static String base64Encode(String data) {
+    public static String md5(String data) {
 
-		return Base64.encodeBase64String(data.getBytes());
-	}
+        return DigestUtils.md5Hex(data);
+    }
 
-	public static byte[] base64Decode(String data) {
+    public static String sha1(String data) {
 
-		return Base64.decodeBase64(data.getBytes());
-	}
+        return DigestUtils.shaHex(data);
+    }
 
-	public static String md5(String data) {
+    public static String sha256Hex(String data) {
 
-		return DigestUtils.md5Hex(data);
-	}
+        return DigestUtils.sha256Hex(data);
+    }
 
-	public static String sha1(String data) {
+    @Test
+    public void test() throws IOException {
+        String base64 = base64Encode("ricky");
+        System.out.println("base64 encode=" + base64);
 
-		return DigestUtils.shaHex(data);
-	}
+        byte[] buf = base64Decode(base64);
+        System.out.println("base64 decode=" + new String(buf));
+        BASE64Decoder base64Decoder = new BASE64Decoder();
+        System.out.println("base64 decode2=" + new String(base64Decoder.decodeBuffer(base64)));
 
-	public static String sha256Hex(String data) {
+        String md5 = md5("ricky");
+        System.out.println("md5=" + md5 + "**len=" + md5.length());
 
-		return DigestUtils.sha256Hex(data);
-	}
+        String sha1 = sha1("test");
+        System.out.println("sha1=" + sha1 + "**len=" + sha1.length());
+    }
 
 
 }  

@@ -4,15 +4,15 @@ import org.junit.Test;
 
 import java.util.concurrent.locks.Lock;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by liangqq on 2017/3/7.
  */
 public class MemLockTest {
 
-    String key = "test1";
     final int LOOP_TIMES = 100000;
+    String key = "test1";
 
     @Test
     public void testSegmentLock() throws Exception {
@@ -69,7 +69,7 @@ public class MemLockTest {
             value++;
         }
 
-        long val(){
+        long val() {
             return value;
         }
     }

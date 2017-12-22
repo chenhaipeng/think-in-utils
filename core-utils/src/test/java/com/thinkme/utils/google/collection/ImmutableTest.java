@@ -11,6 +11,7 @@ import static com.google.common.collect.Collections2.filter;
 
 /**
  * 测试google Immutable类
+ *
  * @author thinkme
  * @version 1.0
  * @mail donotcoffee@gmail.com
@@ -18,41 +19,44 @@ import static com.google.common.collect.Collections2.filter;
  */
 public class ImmutableTest {
 
-	@Test
-	public void testImmutableList(){
-		ImmutableList<String> of = ImmutableList.of("a", "b", "c", "d");
-		System.out.println(of);
-		ImmutableMap<String,String> map = ImmutableMap.of("key1", "value1", "key2", "value2");
-		System.out.println(map);
-	}
+    public static Predicate<String> lengthLessThan(final int length) {
+        return new LengthLessThanPredicate(length);
+    }
 
-	@Test
-	public void testFilter(){
-		ImmutableList<String> names = ImmutableList.of("Aleksander", "Jaran", "Integrasco", "Guava", "Java");
-		Iterable<String> filtered = filter(names, or(or(equalTo("Aleksander"),equalTo("Jaran")), lengthLessThan(5)));
-		System.out.println(filtered);
+    @Test
+    public void testImmutableList() {
+        ImmutableList<String> of = ImmutableList.of("a", "b", "c", "d");
+        System.out.println(of);
+        ImmutableMap<String, String> map = ImmutableMap.of("key1", "value1", "key2", "value2");
+        System.out.println(map);
+    }
 
-	}
-	private static class LengthLessThanPredicate implements Predicate<String> {
-		private final int length;
-		private LengthLessThanPredicate(final int length) {
-			this.length = length;
-		}
-		public boolean apply(final String s) {
-			return s.length() < length;
-		}
-	}
+    @Test
+    public void testFilter() {
+        ImmutableList<String> names = ImmutableList.of("Aleksander", "Jaran", "Integrasco", "Guava", "Java");
+        Iterable<String> filtered = filter(names, or(or(equalTo("Aleksander"), equalTo("Jaran")), lengthLessThan(5)));
+        System.out.println(filtered);
 
-	public static Predicate<String> lengthLessThan(final int length) {
-		return new LengthLessThanPredicate(length);
-	}
+    }
 
-	/**
-	 * 测试google 函数式编程
-	 */
-	public void testFuntions(){
+    /**
+     * 测试google 函数式编程
+     */
+    public void testFuntions() {
 
 
-	}
+    }
+
+    private static class LengthLessThanPredicate implements Predicate<String> {
+        private final int length;
+
+        private LengthLessThanPredicate(final int length) {
+            this.length = length;
+        }
+
+        public boolean apply(final String s) {
+            return s.length() < length;
+        }
+    }
 
 }

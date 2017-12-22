@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 弱引用哈希锁，依赖gc回收锁对象
- *
+ * <p>
  * Created by liangqq on 2017/3/7.
  */
 class WeakHashLock {
@@ -19,6 +19,7 @@ class WeakHashLock {
 
     /**
      * 获取key对应的锁对象
+     *
      * @param key 锁key
      * @return 锁对象
      */

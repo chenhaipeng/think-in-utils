@@ -11,9 +11,9 @@ import org.junit.Test;
  */
 public class ValidateTest {
 
-	@Test(expected = NullPointerException.class)
-	public void test(){
-		String s = null;
-		Validate.notEmpty(s);
-	}
+    @Test(expected = NullPointerException.class)
+    public void test() {
+        String s = null;
+        Validate.notEmpty(s);
+    }
 }

@@ -7,7 +7,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 public class TestMain {
 
     /**
-	 * @param args
+     * @param args
      */
     public static void main(String[] args) {
         FromBean fb = new FromBean();

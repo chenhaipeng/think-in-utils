@@ -36,10 +36,12 @@ public abstract class FastJsonUtil {
         }
 
     }
+
     /**
      * 将JSON 格式的字符串转换为JsonObject
      * 可以使用 for(java.util.Map.Entry<String,Object> entry:jsonObject.entrySet()) 来遍历
      * ,KEY顺序无序
+     *
      * @param content
      * @return
      */
@@ -58,12 +60,13 @@ public abstract class FastJsonUtil {
      * 将JSON 格式的字符串转换为JsonObject
      * 可以使用 for(int k=0;k<jsonArray.size();k++)  来遍历
      * KEY顺序 有序
+     *
      * @param content
      * @return
      */
     public static JSONArray string2JSONArray(String content) {
         try {
-            return  JSONArray.parseArray(content);
+            return JSONArray.parseArray(content);
         } catch (Exception e) {
             FormattingTuple message = MessageFormatter.format("将字符串[{}]转换为对象[{}]时出现异常",
                     new Object[]{content, "JSONArray", e});
@@ -87,16 +90,17 @@ public abstract class FastJsonUtil {
             throw new RuntimeException(message.getMessage(), e);
         }
     }
+
     /**
      * 将对象转换为 JSON 的字符串格式
      *
-     * @param object  SerializerFeature.WriteDateUseDateFormat
+     * @param object      SerializerFeature.WriteDateUseDateFormat
      * @param dateFormate 日期格式
      * @return
      */
-    public static String object2StringWithDateFormat(Object object,String dateFormate) {
+    public static String object2StringWithDateFormat(Object object, String dateFormate) {
         try {
-            return JSON.toJSONStringWithDateFormat(object,dateFormate);
+            return JSON.toJSONStringWithDateFormat(object, dateFormate);
 
         } catch (Exception e) {
             FormattingTuple message = MessageFormatter.format("将对象[{}]转换为JSON字符串时发生异常", object, e);
@@ -106,13 +110,14 @@ public abstract class FastJsonUtil {
 
     /**
      * 将对象转换为 JSON 的字符串格式
-     *@param prettyFormat 是否美化输出
+     *
+     * @param prettyFormat 是否美化输出
      * @param object
      * @return
      */
-    public static String object2String(Object object,boolean prettyFormat) {
+    public static String object2String(Object object, boolean prettyFormat) {
         try {
-            return JSON.toJSONString(object,prettyFormat);
+            return JSON.toJSONString(object, prettyFormat);
 
         } catch (Exception e) {
             FormattingTuple message = MessageFormatter.format("将对象[{}]转换为JSON字符串时发生异常", object, e);
@@ -122,31 +127,34 @@ public abstract class FastJsonUtil {
 
     /**
      * 将JSON 格式的字符转换为集合
+     *
      * @param content 字符串
-     * @param clazz 元素类型
+     * @param clazz   元素类型
      * @return
      */
-    public static <T> List<T> string2List(String content, Class<T> clazz){
+    public static <T> List<T> string2List(String content, Class<T> clazz) {
         try {
             return JSON.parseArray(content, clazz);
         } catch (Exception e) {
             FormattingTuple message = MessageFormatter.format("将字符串[{}]转换为集合[{}]时出现异常",
-                    new Object[] { content, List.class, e });
+                    new Object[]{content, List.class, e});
             throw new RuntimeException(message.getMessage(), e);
         }
     }
+
     /**
      * 将JSON 格式的字符转换为泛型集合
-     * @param content 字符串
+     *
+     * @param content        字符串
      * @param tTypeReference 元素类型  new TypeReference<Map<String, User>>() {}; new TypeReference<List<User>>() {};
      * @return
      */
-    public static <T> T string2Generic(String content, TypeReference<T> tTypeReference){
+    public static <T> T string2Generic(String content, TypeReference<T> tTypeReference) {
         try {
             return JSON.parseObject(content, tTypeReference);
         } catch (Exception e) {
             FormattingTuple message = MessageFormatter.format("将字符串[{}]转换为集合[{}]时出现异常",
-                    new Object[] { content, List.class, e });
+                    new Object[]{content, List.class, e});
             throw new RuntimeException(message.getMessage(), e);
         }
     }

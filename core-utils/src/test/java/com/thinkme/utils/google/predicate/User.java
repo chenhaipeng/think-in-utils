@@ -13,12 +13,12 @@ public class User {
         return userName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public void setAge(int age) {

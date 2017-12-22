@@ -26,12 +26,12 @@ import static org.junit.Assert.assertThat;
 @PrepareForTest(IPIdGenerator.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class IPIdGeneratorTest {
-    
+
     private static InetAddress address;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
+
     @BeforeClass
     public static void init() throws UnknownHostException {
         String ipv4 = "192.168.1.108";

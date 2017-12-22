@@ -11,235 +11,235 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BeanMapperTest {
 
-	@Test
-	public void copySingleObject() {
-		Student student = new Student("zhang3", 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
+    @Test
+    public void copySingleObject() {
+        Student student = new Student("zhang3", 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
 
-		StudentVO studentVo = BeanMapper.map(student, StudentVO.class);
+        StudentVO studentVo = BeanMapper.map(student, StudentVO.class);
 
-		assertThat(studentVo.name).isEqualTo("zhang3");
-		assertThat(studentVo.getAge()).isEqualTo(20);
-		assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
-		assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
+        assertThat(studentVo.name).isEqualTo("zhang3");
+        assertThat(studentVo.getAge()).isEqualTo(20);
+        assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
+        assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
 
-		//////////
-		Type<Student> studentType = BeanMapper.getType(Student.class);
-		Type<StudentVO> studentVoType = BeanMapper.getType(StudentVO.class);
-		studentVo = BeanMapper.map(student, studentType, studentVoType);
-		//是否是浅copy
-		student.setName("chen");
+        //////////
+        Type<Student> studentType = BeanMapper.getType(Student.class);
+        Type<StudentVO> studentVoType = BeanMapper.getType(StudentVO.class);
+        studentVo = BeanMapper.map(student, studentType, studentVoType);
+        //是否是浅copy
+        student.setName("chen");
 
-		assertThat(studentVo.name).isEqualTo("zhang3");
-		assertThat(studentVo.getAge()).isEqualTo(20);
-		assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
-		assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
+        assertThat(studentVo.name).isEqualTo("zhang3");
+        assertThat(studentVo.getAge()).isEqualTo(20);
+        assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
+        assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
 
-		//是否null空值覆盖
-		Student student2 = new Student(null, 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
-		StudentVO studentVO2 = new StudentVO();
-		studentVO2.setName("xxx");
-		studentVO2 = BeanMapper.map(student2,StudentVO.class);
+        //是否null空值覆盖
+        Student student2 = new Student(null, 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
+        StudentVO studentVO2 = new StudentVO();
+        studentVO2.setName("xxx");
+        studentVO2 = BeanMapper.map(student2, StudentVO.class);
 
-		//注意BeanUtils 的类型copy，需要属性一一对应，总体来说BeanMapper的功能更优
+        //注意BeanUtils 的类型copy，需要属性一一对应，总体来说BeanMapper的功能更优
 //		BeanUtils.fastCopyProperties(student2,studentVO2);
 //		BeanUtils.copyNotNullProperties(student2,studentVO2);
-		System.out.println(FastJsonUtil.object2String(studentVO2));
-		assertThat(studentVO2.getName()).isNull();
-	}
+        System.out.println(FastJsonUtil.object2String(studentVO2));
+        assertThat(studentVO2.getName()).isNull();
+    }
 
-	@Test
-	public void copyListObject() {
-		Student student1 = new Student("zhang3", 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
-		Student student2 = new Student("zhang4", 30, new Teacher("li5"), ListUtil.newArrayList("chinese2", "english4"));
-		Student student3 = new Student("zhang5", 40, new Teacher("li6"), ListUtil.newArrayList("chinese3", "english5"));
-		List<Student> studentList = ListUtil.newArrayList(student1, student2, student3);
+    @Test
+    public void copyListObject() {
+        Student student1 = new Student("zhang3", 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
+        Student student2 = new Student("zhang4", 30, new Teacher("li5"), ListUtil.newArrayList("chinese2", "english4"));
+        Student student3 = new Student("zhang5", 40, new Teacher("li6"), ListUtil.newArrayList("chinese3", "english5"));
+        List<Student> studentList = ListUtil.newArrayList(student1, student2, student3);
 
-		List<StudentVO> studentVoList = BeanMapper.mapList(studentList, Student.class, StudentVO.class);
-		assertThat(studentVoList).hasSize(3);
-		StudentVO studentVo = studentVoList.get(0);
+        List<StudentVO> studentVoList = BeanMapper.mapList(studentList, Student.class, StudentVO.class);
+        assertThat(studentVoList).hasSize(3);
+        StudentVO studentVo = studentVoList.get(0);
 
-		assertThat(studentVo.name).isEqualTo("zhang3");
-		assertThat(studentVo.getAge()).isEqualTo(20);
-		assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
-		assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
+        assertThat(studentVo.name).isEqualTo("zhang3");
+        assertThat(studentVo.getAge()).isEqualTo(20);
+        assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
+        assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
 
-		/////////
-		Type<Student> studentType = BeanMapper.getType(Student.class);
-		Type<StudentVO> studentVoType = BeanMapper.getType(StudentVO.class);
-		studentVoList = BeanMapper.mapList(studentList, studentType, studentVoType);
+        /////////
+        Type<Student> studentType = BeanMapper.getType(Student.class);
+        Type<StudentVO> studentVoType = BeanMapper.getType(StudentVO.class);
+        studentVoList = BeanMapper.mapList(studentList, studentType, studentVoType);
 
-		studentVoList = BeanMapper.mapList(studentList, Student.class, StudentVO.class);
-		assertThat(studentVoList).hasSize(3);
-		studentVo = studentVoList.get(0);
+        studentVoList = BeanMapper.mapList(studentList, Student.class, StudentVO.class);
+        assertThat(studentVoList).hasSize(3);
+        studentVo = studentVoList.get(0);
 
-		assertThat(studentVo.name).isEqualTo("zhang3");
-		assertThat(studentVo.getAge()).isEqualTo(20);
-		assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
-		assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
-	}
+        assertThat(studentVo.name).isEqualTo("zhang3");
+        assertThat(studentVo.getAge()).isEqualTo(20);
+        assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
+        assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
+    }
 
-	
-	@Test
-	public void copyArrayObject() {
-		Student student1 = new Student("zhang3", 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
-		Student student2 = new Student("zhang4", 30, new Teacher("li5"), ListUtil.newArrayList("chinese2", "english4"));
-		Student student3 = new Student("zhang5", 40, new Teacher("li6"), ListUtil.newArrayList("chinese3", "english5"));
-		Student[] studentList = new Student[]{student1, student2, student3};
-		StudentVO[] studentVoList =new StudentVO[studentList.length];
-		BeanMapper.mapArray(studentVoList, studentList, StudentVO.class);
-		assertThat(studentVoList).hasSize(3);
-		StudentVO studentVo = studentVoList[0];
 
-		assertThat(studentVo.name).isEqualTo("zhang3");
-		assertThat(studentVo.getAge()).isEqualTo(20);
-		assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
-		assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
+    @Test
+    public void copyArrayObject() {
+        Student student1 = new Student("zhang3", 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
+        Student student2 = new Student("zhang4", 30, new Teacher("li5"), ListUtil.newArrayList("chinese2", "english4"));
+        Student student3 = new Student("zhang5", 40, new Teacher("li6"), ListUtil.newArrayList("chinese3", "english5"));
+        Student[] studentList = new Student[]{student1, student2, student3};
+        StudentVO[] studentVoList = new StudentVO[studentList.length];
+        BeanMapper.mapArray(studentVoList, studentList, StudentVO.class);
+        assertThat(studentVoList).hasSize(3);
+        StudentVO studentVo = studentVoList[0];
 
-		/////////
-		Type<Student> studentType = BeanMapper.getType(Student.class);
-		Type<StudentVO> studentVoType = BeanMapper.getType(StudentVO.class);
-		
-		StudentVO[] studentVoList2 =new StudentVO[studentList.length];
-		BeanMapper.mapArray(studentVoList2, studentList,studentType, studentVoType);
-		assertThat(studentVoList).hasSize(3);
-		studentVo = studentVoList2[0];
+        assertThat(studentVo.name).isEqualTo("zhang3");
+        assertThat(studentVo.getAge()).isEqualTo(20);
+        assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
+        assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
 
-		assertThat(studentVo.name).isEqualTo("zhang3");
-		assertThat(studentVo.getAge()).isEqualTo(20);
-		assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
-		assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
-	}
+        /////////
+        Type<Student> studentType = BeanMapper.getType(Student.class);
+        Type<StudentVO> studentVoType = BeanMapper.getType(StudentVO.class);
 
-	
-	public static class Student {
-		public String name;
-		private int age;
-		private Teacher teacher;
-		private List<String> course = ListUtil.newArrayList();
+        StudentVO[] studentVoList2 = new StudentVO[studentList.length];
+        BeanMapper.mapArray(studentVoList2, studentList, studentType, studentVoType);
+        assertThat(studentVoList).hasSize(3);
+        studentVo = studentVoList2[0];
 
-		public Student(String name, int age, Teacher teacher, List<String> course) {
-			this.name = name;
-			this.age = age;
-			this.teacher = teacher;
-			this.course = course;
-		}
+        assertThat(studentVo.name).isEqualTo("zhang3");
+        assertThat(studentVo.getAge()).isEqualTo(20);
+        assertThat(studentVo.getTeacher().getName()).isEqualTo("li4");
+        assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
+    }
 
-		public List<String> getCourse() {
-			return course;
-		}
 
-		public void setCourse(List<String> course) {
-			this.course = course;
-		}
+    public static class Student {
+        public String name;
+        private int age;
+        private Teacher teacher;
+        private List<String> course = ListUtil.newArrayList();
 
-		public int getAge() {
-			return age;
-		}
+        public Student(String name, int age, Teacher teacher, List<String> course) {
+            this.name = name;
+            this.age = age;
+            this.teacher = teacher;
+            this.course = course;
+        }
 
-		public void setAge(int age) {
-			this.age = age;
-		}
+        public List<String> getCourse() {
+            return course;
+        }
 
-		public Teacher getTeacher() {
-			return teacher;
-		}
+        public void setCourse(List<String> course) {
+            this.course = course;
+        }
 
-		public void setTeacher(Teacher teacher) {
-			this.teacher = teacher;
-		}
+        public int getAge() {
+            return age;
+        }
 
-		public String getName() {
-			return name;
-		}
+        public void setAge(int age) {
+            this.age = age;
+        }
 
-		public void setName(String name) {
-			this.name = name;
-		}
-	}
+        public Teacher getTeacher() {
+            return teacher;
+        }
 
-	public static class Teacher {
-		private String name;
+        public void setTeacher(Teacher teacher) {
+            this.teacher = teacher;
+        }
 
-		public Teacher(String name) {
-			super();
-			this.name = name;
-		}
+        public String getName() {
+            return name;
+        }
 
-		public String getName() {
-			return name;
-		}
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
 
-		public void setName(String name) {
-			this.name = name;
-		}
+    public static class Teacher {
+        private String name;
 
-	}
+        public Teacher(String name) {
+            super();
+            this.name = name;
+        }
 
-	public static class StudentVO {
-		public String name;
-		private int age;
-		private TeacherVO teacher;
-		private List<String> course = ListUtil.newArrayList();
+        public String getName() {
+            return name;
+        }
 
-		public StudentVO(String name, int age, TeacherVO teacher, List<String> course) {
-			this.name = name;
-			this.age = age;
-			this.teacher = teacher;
-			this.course = course;
-		}
+        public void setName(String name) {
+            this.name = name;
+        }
 
-		public StudentVO() {
-		}
+    }
 
-		public List<String> getCourse() {
-			return course;
-		}
+    public static class StudentVO {
+        public String name;
+        private int age;
+        private TeacherVO teacher;
+        private List<String> course = ListUtil.newArrayList();
 
-		public void setCourse(List<String> course) {
-			this.course = course;
-		}
+        public StudentVO(String name, int age, TeacherVO teacher, List<String> course) {
+            this.name = name;
+            this.age = age;
+            this.teacher = teacher;
+            this.course = course;
+        }
 
-		public int getAge() {
-			return age;
-		}
+        public StudentVO() {
+        }
 
-		public void setAge(int age) {
-			this.age = age;
-		}
+        public List<String> getCourse() {
+            return course;
+        }
 
-		public TeacherVO getTeacher() {
-			return teacher;
-		}
+        public void setCourse(List<String> course) {
+            this.course = course;
+        }
 
-		public void setTeacher(TeacherVO teacher) {
-			this.teacher = teacher;
-		}
+        public int getAge() {
+            return age;
+        }
 
-		public String getName() {
-			return name;
-		}
+        public void setAge(int age) {
+            this.age = age;
+        }
 
-		public void setName(String name) {
-			this.name = name;
-		}
-	}
+        public TeacherVO getTeacher() {
+            return teacher;
+        }
 
-	public static class TeacherVO {
-		private String name;
+        public void setTeacher(TeacherVO teacher) {
+            this.teacher = teacher;
+        }
 
-		public TeacherVO(String name) {
-			super();
-			this.name = name;
-		}
+        public String getName() {
+            return name;
+        }
 
-		public String getName() {
-			return name;
-		}
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
 
-		public void setName(String name) {
-			this.name = name;
-		}
+    public static class TeacherVO {
+        private String name;
 
-	}
+        public TeacherVO(String name) {
+            super();
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+    }
 
 }

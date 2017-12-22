@@ -12,19 +12,17 @@ import org.junit.Test;
  */
 public class ObjectTest {
 
-	@Test
-	public void test(){
+    @Test
+    public void test() {
 
-		Objects.equal("a", "a"); // returns true
-		Objects.equal(null, "a"); // returns false
-		Objects.equal("a", null); // returns false
-		Objects.equal(null, null); // returns true
-
-
+        Objects.equal("a", "a"); // returns true
+        Objects.equal(null, "a"); // returns false
+        Objects.equal("a", null); // returns false
+        Objects.equal(null, null); // returns true
 
 
-		String s = MoreObjects.toStringHelper("MyObject").add("x", 1).toString();
-		System.out.println(s);
+        String s = MoreObjects.toStringHelper("MyObject").add("x", 1).toString();
+        System.out.println(s);
 
-	}
+    }
 }

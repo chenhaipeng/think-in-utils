@@ -12,11 +12,11 @@ import java.net.UnknownHostException;
  */
 public class IPIdGenerator implements IdGenerator {
 
-    private final CommonIdGenerator commonIdGenerator = new CommonIdGenerator();
-
     static {
         initWorkerId();
     }
+
+    private final CommonIdGenerator commonIdGenerator = new CommonIdGenerator();
 
     static void initWorkerId() {
         InetAddress address;

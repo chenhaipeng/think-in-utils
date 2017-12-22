@@ -13,6 +13,7 @@
  * the License.
  */
 package com.thinkme.utils.collection.type.primitive;
+
 import java.util.Map;
 
 
@@ -22,28 +23,6 @@ import java.util.Map;
  * @param <V> the value type stored in the map.
  */
 public interface IntObjectMap<V> extends Map<Integer, V> {
-
-    /**
-     * A primitive entry in the map, provided by the iterator from {@link #entries()}
-     *
-     * @param <V> the value type stored in the map.
-     */
-    interface PrimitiveEntry<V> {
-        /**
-         * Gets the key for this entry.
-         */
-        int key();
-
-        /**
-         * Gets the value for this entry.
-         */
-        V value();
-
-        /**
-         * Sets the value for this entry.
-         */
-        void setValue(V value);
-    }
 
     /**
      * Gets the value in the map with the specified key.
@@ -56,7 +35,7 @@ public interface IntObjectMap<V> extends Map<Integer, V> {
     /**
      * Puts the given entry into the map.
      *
-     * @param key the key of the entry.
+     * @param key   the key of the entry.
      * @param value the value of the entry.
      * @return the previous value for this key or {@code null} if there was no previous mapping.
      */
@@ -81,4 +60,26 @@ public interface IntObjectMap<V> extends Map<Integer, V> {
      * Indicates whether or not this map contains a value for the specified key.
      */
     boolean containsKey(int key);
+
+    /**
+     * A primitive entry in the map, provided by the iterator from {@link #entries()}
+     *
+     * @param <V> the value type stored in the map.
+     */
+    interface PrimitiveEntry<V> {
+        /**
+         * Gets the key for this entry.
+         */
+        int key();
+
+        /**
+         * Gets the value for this entry.
+         */
+        V value();
+
+        /**
+         * Sets the value for this entry.
+         */
+        void setValue(V value);
+    }
 }

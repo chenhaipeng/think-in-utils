@@ -6,7 +6,8 @@ import com.google.common.eventbus.EventBus;
 import java.util.concurrent.Executors;
 
 /**
- *抽象于event事件发布类
+ * 抽象于event事件发布类
+ *
  * @author chenhaipeng
  * @version 1.0
  * @date 2016/08/19 1:37

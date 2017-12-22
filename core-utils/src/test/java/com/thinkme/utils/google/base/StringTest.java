@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 测试google String 工具类相关
+ *
  * @author thinkme
  * @version 1.0
  * @mail donotcoffee@gmail.com
@@ -14,20 +15,20 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class StringTest {
 
-	@Test
-	public void test(){
-		assertThat(Strings.isNullOrEmpty("")).isTrue();
-		assertThat(Strings.nullToEmpty(null).equals(""));
-		assertThat(Strings.nullToEmpty("a").equals("a"));
-		assertThat(Strings.emptyToNull("")).isNull();
-		assertThat(Strings.emptyToNull("a").equals("a"));
+    @Test
+    public void test() {
+        assertThat(Strings.isNullOrEmpty("")).isTrue();
+        assertThat(Strings.nullToEmpty(null).equals(""));
+        assertThat(Strings.nullToEmpty("a").equals("a"));
+        assertThat(Strings.emptyToNull("")).isNull();
+        assertThat(Strings.emptyToNull("a").equals("a"));
 
-		Strings.padStart("7", 3, '0');//"007"
-		Strings.padStart("2010", 3, '0');//"2010"
-		Strings.padEnd("4.", 5, '0');//"4.000"
-		Strings.padEnd("2010", 3, '!');//"2010"
-		Strings.repeat("hey", 3);//"heyheyhey"
+        Strings.padStart("7", 3, '0');//"007"
+        Strings.padStart("2010", 3, '0');//"2010"
+        Strings.padEnd("4.", 5, '0');//"4.000"
+        Strings.padEnd("2010", 3, '!');//"2010"
+        Strings.repeat("hey", 3);//"heyheyhey"
 
 
-	}
+    }
 }

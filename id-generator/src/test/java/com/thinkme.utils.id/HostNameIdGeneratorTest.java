@@ -26,14 +26,14 @@ import static org.junit.Assert.assertThat;
 @PrepareForTest(HostNameIdGenerator.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class HostNameIdGeneratorTest {
-    
+
     private static InetAddress rightAddress;
-    
+
     private static InetAddress wrongAddress;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
-    
+
     @BeforeClass
     public static void init() throws UnknownHostException {
         String ipv4 = "192.168.1.108";

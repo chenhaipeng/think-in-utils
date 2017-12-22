@@ -2,7 +2,7 @@ package com.thinkme.utils.id.time;
 
 /**
  * 抽象的时钟类
- *
+ * <p>
  * <p>抽取此类主要为了解决问题时间相关的测试问题</p>
  */
 public abstract class AbstractClock {

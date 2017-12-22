@@ -9,7 +9,7 @@ package com.thinkme.utils.concurrent.jsr166e;
 
 /**
  * http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/jsr166e/CountedCompleter.java 1.31
- * 
+ * <p>
  * A {@link ForkJoinTask} with a completion action performed when
  * triggered and there are no remaining pending actions.
  * CountedCompleters are in general more robust in the
@@ -40,7 +40,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * synchronization mechanisms, it may be useful to create further
  * abstract subclasses that maintain linkages, fields, and additional
  * support methods appropriate for a set of related usages.
- *
+ * <p>
  * <p>A concrete CountedCompleter class must define method {@link
  * #compute}, that should in most cases (as illustrated below), invoke
  * {@code tryComplete()} once before returning. The class may also
@@ -48,7 +48,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * to perform an action upon normal completion, and method
  * {@link #onExceptionalCompletion(Throwable, CountedCompleter)} to
  * perform an action upon any exception.
- *
+ * <p>
  * <p>CountedCompleters most often do not bear results, in which case
  * they are normally declared as {@code CountedCompleter<Void>}, and
  * will always return {@code null} as a result value.  In other cases,
@@ -60,7 +60,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * default plays no role in CountedCompleters.  It is possible, but
  * rarely applicable, to override this method to maintain other
  * objects or fields holding result data.
- *
+ * <p>
  * <p>A CountedCompleter that does not itself have a completer (i.e.,
  * one for which {@link #getCompleter} returns {@code null}) can be
  * used as a regular ForkJoinTask with this added functionality.
@@ -76,9 +76,9 @@ package com.thinkme.utils.concurrent.jsr166e;
  * not otherwise already completed. Similarly, cancelling an internal
  * CountedCompleter has only a local effect on that completer, so is
  * not often useful.
- *
+ * <p>
  * <p><b>Sample Usages.</b>
- *
+ * <p>
  * <p><b>Parallel recursive decomposition.</b> CountedCompleters may
  * be arranged in trees similar to those often used with {@link
  * RecursiveAction}s, although the constructions involved in setting
@@ -93,7 +93,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * garbage collection.  Because CountedCompleters provide their own
  * continuations, other threads need not block waiting to perform
  * them.
- *
+ * <p>
  * <p>For example, here is an initial version of a class that uses
  * divide-by-two recursive decomposition to divide work into single
  * pieces (leaf tasks). Even when work is split into individual calls,
@@ -105,7 +105,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * implementation of method {@code onCompletion} is not overridden).
  * A static utility method sets up the base task and invokes it
  * (here, implicitly using the {@link ForkJoinPool#commonPool()}).
- *
+ * <p>
  * <pre> {@code
  * class MyOperation<E> { void apply(E e) { ... }  }
  *
@@ -133,14 +133,14 @@ package com.thinkme.utils.concurrent.jsr166e;
  *     tryComplete();
  *   }
  * }}</pre>
- *
+ * <p>
  * This design can be improved by noticing that in the recursive case,
  * the task has nothing to do after forking its right task, so can
  * directly invoke its left task before returning. (This is an analog
  * of tail recursion removal.)  Also, because the task returns upon
  * executing its left task (rather than falling through to invoke
  * {@code tryComplete}) the pending count is set to one:
- *
+ * <p>
  * <pre> {@code
  * class ForEach<E> ...
  *   public void compute() { // version 2
@@ -157,13 +157,13 @@ package com.thinkme.utils.concurrent.jsr166e;
  *     }
  *   }
  * }</pre>
- *
+ * <p>
  * As a further improvement, notice that the left task need not even exist.
  * Instead of creating a new one, we can iterate using the original task,
  * and add a pending count for each fork.  Additionally, because no task
  * in this tree implements an {@link #onCompletion(CountedCompleter)} method,
  * {@code tryComplete()} can be replaced with {@link #propagateCompletion}.
- *
+ * <p>
  * <pre> {@code
  * class ForEach<E> ...
  *   public void compute() { // version 3
@@ -179,13 +179,13 @@ package com.thinkme.utils.concurrent.jsr166e;
  *     propagateCompletion();
  *   }
  * }</pre>
- *
+ * <p>
  * Additional improvements of such classes might entail precomputing
  * pending counts so that they can be established in constructors,
  * specializing classes for leaf steps, subdividing by say, four,
  * instead of two per iteration, and using an adaptive threshold
  * instead of always subdividing down to single elements.
- *
+ * <p>
  * <p><b>Searching.</b> A tree of CountedCompleters can search for a
  * value or property in different parts of a data structure, and
  * report a result in an {@link
@@ -197,7 +197,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * further processing.)  Illustrating again with an array using full
  * partitioning (again, in practice, leaf tasks will almost always
  * process more than one element):
- *
+ * <p>
  * <pre> {@code
  * class Searcher<E> extends CountedCompleter<E> {
  *   final E[] array; final AtomicReference<E> result; final int lo, hi;
@@ -230,14 +230,14 @@ package com.thinkme.utils.concurrent.jsr166e;
  *       return new Searcher<E>(null, array, new AtomicReference<E>(), 0, array.length).invoke();
  *   }
  * }}</pre>
- *
+ * <p>
  * In this example, as well as others in which tasks have no other
  * effects except to compareAndSet a common result, the trailing
  * unconditional invocation of {@code tryComplete} could be made
  * conditional ({@code if (result.get() == null) tryComplete();})
  * because no further bookkeeping is required to manage completions
  * once the root task completes.
- *
+ * <p>
  * <p><b>Recording subtasks.</b> CountedCompleter tasks that combine
  * results of multiple subtasks usually need to access these results
  * in method {@link #onCompletion(CountedCompleter)}. As illustrated in the following
@@ -249,7 +249,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * combining left and right results does not matter; ordered
  * reductions require explicit left/right designations.  Variants of
  * other streamlinings seen in the above examples may also apply.
- *
+ * <p>
  * <pre> {@code
  * class MyMapper<E> { E apply(E v) {  ...  } }
  * class MyReducer<E> { E apply(E x, E y) {  ...  } }
@@ -298,7 +298,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  *                              0, array.length).invoke();
  *   }
  * }}</pre>
- *
+ * <p>
  * Here, method {@code onCompletion} takes a form common to many
  * completion designs that combine results. This callback-style method
  * is triggered once per task, in either of the two different contexts
@@ -314,7 +314,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * a task and its subtasks. No additional synchronization is required
  * within this method to ensure thread safety of accesses to fields of
  * this task or other completed tasks.
- *
+ * <p>
  * <p><b>Completion Traversals</b>. If using {@code onCompletion} to
  * process completions is inapplicable or inconvenient, you can use
  * methods {@link #firstComplete} and {@link #nextComplete} to create
@@ -322,7 +322,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  * splits out right-hand tasks in the form of the third ForEach
  * example, the completions must cooperatively reduce along
  * unexhausted subtask links, which can be done as follows:
- *
+ * <p>
  * <pre> {@code
  * class MapReducer<E> extends CountedCompleter<E> { // version 2
  *   final E[] array; final MyMapper<E> mapper;
@@ -359,12 +359,12 @@ package com.thinkme.utils.concurrent.jsr166e;
  *                              0, array.length, null).invoke();
  *   }
  * }}</pre>
- *
+ * <p>
  * <p><b>Triggers.</b> Some CountedCompleters are themselves never
  * forked, but instead serve as bits of plumbing in other designs;
  * including those in which the completion of one or more async tasks
  * triggers another async task. For example:
- *
+ * <p>
  * <pre> {@code
  * class HeaderBuilder extends CountedCompleter<...> { ... }
  * class BodyBuilder extends CountedCompleter<...> { ... }
@@ -379,22 +379,39 @@ package com.thinkme.utils.concurrent.jsr166e;
  * new BodyBuilder(p, ...).fork();
  * }</pre>
  *
- * @since 1.8
  * @author Doug Lea
+ * @since 1.8
  */
 public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
     private static final long serialVersionUID = 5232453752276485070L;
+    // Unsafe mechanics
+    private static final sun.misc.Unsafe U;
+    private static final long PENDING;
 
-    /** This task's completer, or null if none */
+    static {
+        try {
+            U = getUnsafe();
+            PENDING = U.objectFieldOffset
+                    (CountedCompleter.class.getDeclaredField("pending"));
+        } catch (Exception e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     * This task's completer, or null if none
+     */
     final CountedCompleter<?> completer;
-    /** The number of pending tasks until completion */
+    /**
+     * The number of pending tasks until completion
+     */
     volatile int pending;
 
     /**
      * Creates a new CountedCompleter with the given completer
      * and initial pending count.
      *
-     * @param completer this task's completer, or {@code null} if none
+     * @param completer           this task's completer, or {@code null} if none
      * @param initialPendingCount the initial pending count
      */
     protected CountedCompleter(CountedCompleter<?> completer,
@@ -422,6 +439,38 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
     }
 
     /**
+     * Returns a sun.misc.Unsafe.  Suitable for use in a 3rd party package.
+     * Replace with a simple call to Unsafe.getUnsafe when integrating
+     * into a jdk.
+     *
+     * @return a sun.misc.Unsafe
+     */
+    private static sun.misc.Unsafe getUnsafe() {
+        try {
+            return sun.misc.Unsafe.getUnsafe();
+        } catch (SecurityException tryReflectionInstead) {
+        }
+        try {
+            return java.security.AccessController.doPrivileged
+                    (new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+                        public sun.misc.Unsafe run() throws Exception {
+                            Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+                            for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                                f.setAccessible(true);
+                                Object x = f.get(null);
+                                if (k.isInstance(x))
+                                    return k.cast(x);
+                            }
+                            throw new NoSuchFieldError("the Unsafe");
+                        }
+                    });
+        } catch (java.security.PrivilegedActionException e) {
+            throw new RuntimeException("Could not initialize intrinsics",
+                    e.getCause());
+        }
+    }
+
+    /**
      * The main computation performed by this task.
      */
     public abstract void compute();
@@ -436,7 +485,7 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * (and/or links to other results) to combine.
      *
      * @param caller the task invoking this method (which may
-     * be this task itself)
+     *               be this task itself)
      */
     public void onCompletion(CountedCompleter<?> caller) {
     }
@@ -453,9 +502,9 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * exception as this completer.  The default implementation of
      * this method does nothing except return {@code true}.
      *
-     * @param ex the exception
+     * @param ex     the exception
      * @param caller the task invoking this method (which may
-     * be this task itself)
+     *               be this task itself)
      * @return {@code true} if this exception should be propagated to this
      * task's completer, if one exists
      */
@@ -498,7 +547,8 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      */
     public final void addToPendingCount(int delta) {
         int c;
-        do {} while (!U.compareAndSwapInt(this, PENDING, c = pending, c+delta));
+        do {
+        } while (!U.compareAndSwapInt(this, PENDING, c = pending, c + delta));
     }
 
     /**
@@ -506,7 +556,7 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * it currently holds the given expected value.
      *
      * @param expected the expected value
-     * @param count the new value
+     * @param count    the new value
      * @return {@code true} if successful
      */
     public final boolean compareAndSetPendingCount(int expected, int count) {
@@ -521,8 +571,9 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      */
     public final int decrementPendingCountUnlessZero() {
         int c;
-        do {} while ((c = pending) != 0 &&
-                     !U.compareAndSwapInt(this, PENDING, c, c - 1));
+        do {
+        } while ((c = pending) != 0 &&
+                !U.compareAndSwapInt(this, PENDING, c, c - 1));
         return c;
     }
 
@@ -547,15 +598,14 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      */
     public final void tryComplete() {
         CountedCompleter<?> a = this, s = a;
-        for (int c;;) {
+        for (int c; ; ) {
             if ((c = a.pending) == 0) {
                 a.onCompletion(s);
                 if ((a = (s = a).completer) == null) {
                     s.quietlyComplete();
                     return;
                 }
-            }
-            else if (U.compareAndSwapInt(a, PENDING, c, c - 1))
+            } else if (U.compareAndSwapInt(a, PENDING, c, c - 1))
                 return;
         }
     }
@@ -571,14 +621,13 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      */
     public final void propagateCompletion() {
         CountedCompleter<?> a = this, s = a;
-        for (int c;;) {
+        for (int c; ; ) {
             if ((c = a.pending) == 0) {
                 if ((a = (s = a).completer) == null) {
                     s.quietlyComplete();
                     return;
                 }
-            }
-            else if (U.compareAndSwapInt(a, PENDING, c, c - 1))
+            } else if (U.compareAndSwapInt(a, PENDING, c, c - 1))
                 return;
         }
     }
@@ -593,7 +642,7 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * as complete; its value is meaningful only for classes
      * overriding {@code setRawResult}.  This method does not modify
      * the pending count.
-     *
+     * <p>
      * <p>This method may be useful when forcing completion as soon as
      * any one (versus all) of several subtask results are obtained.
      * However, in the common (and recommended) case in which {@code
@@ -611,7 +660,6 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
             p.tryComplete();
     }
 
-
     /**
      * If this task's pending count is zero, returns this task;
      * otherwise decrements its pending count and returns {@code
@@ -621,7 +669,7 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * @return this task, if pending count was zero, else {@code null}
      */
     public final CountedCompleter<?> firstComplete() {
-        for (int c;;) {
+        for (int c; ; ) {
             if ((c = pending) == 0)
                 return this;
             else if (U.compareAndSwapInt(this, PENDING, c, c - 1))
@@ -636,7 +684,7 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * pending count and returns {@code null}.  Otherwise, returns the
      * completer.  This method can be used as part of a completion
      * traversal loop for homogeneous task hierarchies:
-     *
+     * <p>
      * <pre> {@code
      * for (CountedCompleter<?> c = firstComplete();
      *      c != null;
@@ -660,7 +708,7 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * Equivalent to {@code getRoot().quietlyComplete()}.
      */
     public final void quietlyCompleteRoot() {
-        for (CountedCompleter<?> a = this, p;;) {
+        for (CountedCompleter<?> a = this, p; ; ) {
             if ((p = a.completer) == null) {
                 a.quietlyComplete();
                 return;
@@ -675,8 +723,8 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
     void internalPropagateException(Throwable ex) {
         CountedCompleter<?> a = this, s = a;
         while (a.onExceptionalCompletion(ex, s) &&
-               (a = (s = a).completer) != null && a.status >= 0 &&
-               a.recordExceptionalCompletion(ex) == EXCEPTIONAL)
+                (a = (s = a).completer) != null && a.status >= 0 &&
+                a.recordExceptionalCompletion(ex) == EXCEPTIONAL)
             ;
     }
 
@@ -697,7 +745,9 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      *
      * @return the result of the computation
      */
-    public T getRawResult() { return null; }
+    public T getRawResult() {
+        return null;
+    }
 
     /**
      * A method that result-bearing CountedCompleters may optionally
@@ -706,48 +756,6 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * overridden to update existing objects or fields, then it must
      * in general be defined to be thread-safe.
      */
-    protected void setRawResult(T t) { }
-
-    // Unsafe mechanics
-    private static final sun.misc.Unsafe U;
-    private static final long PENDING;
-    static {
-        try {
-            U = getUnsafe();
-            PENDING = U.objectFieldOffset
-                (CountedCompleter.class.getDeclaredField("pending"));
-        } catch (Exception e) {
-            throw new Error(e);
-        }
-    }
-
-    /**
-     * Returns a sun.misc.Unsafe.  Suitable for use in a 3rd party package.
-     * Replace with a simple call to Unsafe.getUnsafe when integrating
-     * into a jdk.
-     *
-     * @return a sun.misc.Unsafe
-     */
-    private static sun.misc.Unsafe getUnsafe() {
-        try {
-            return sun.misc.Unsafe.getUnsafe();
-        } catch (SecurityException tryReflectionInstead) {}
-        try {
-            return java.security.AccessController.doPrivileged
-            (new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                public sun.misc.Unsafe run() throws Exception {
-                    Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                    for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                        f.setAccessible(true);
-                        Object x = f.get(null);
-                        if (k.isInstance(x))
-                            return k.cast(x);
-                    }
-                    throw new NoSuchFieldError("the Unsafe");
-                }});
-        } catch (java.security.PrivilegedActionException e) {
-            throw new RuntimeException("Could not initialize intrinsics",
-                                       e.getCause());
-        }
+    protected void setRawResult(T t) {
     }
 }

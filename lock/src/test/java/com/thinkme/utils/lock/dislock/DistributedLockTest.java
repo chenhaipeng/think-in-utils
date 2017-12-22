@@ -43,11 +43,11 @@ public class DistributedLockTest {
 
         Thread thread = new Thread(() -> {
             DistributedLock lock2 = distributedLockFactory.getLock(KEY);
-            try{
+            try {
                 lock2.lock(waitTime, TimeUnit.MICROSECONDS);
-            }catch(LockException e){
+            } catch (LockException e) {
                 assertThat(lock2.isHeldByCurrentThread()).isFalse();
-            }finally {
+            } finally {
                 lock2.unLock();
             }
         });

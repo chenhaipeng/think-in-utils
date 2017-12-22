@@ -7,9 +7,8 @@
 package com.thinkme.utils.concurrent.jsr166e;
 
 /**
- * 
  * http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/jsr166e/ForkJoinWorkerThread.java 1.6
- * 
+ * <p>
  * A thread managed by a {@link ForkJoinPool}, which executes
  * {@link ForkJoinTask}s.
  * This class is subclassable solely for the sake of adding
@@ -20,8 +19,8 @@ package com.thinkme.utils.concurrent.jsr166e;
  * custom {@link ForkJoinPool.ForkJoinWorkerThreadFactory} to
  * {@linkplain ForkJoinPool#ForkJoinPool use it} in a {@code ForkJoinPool}.
  *
- * @since 1.7
  * @author Doug Lea
+ * @since 1.7
  */
 public class ForkJoinWorkerThread extends Thread {
     /*
@@ -94,7 +93,7 @@ public class ForkJoinWorkerThread extends Thread {
      * {@code super.onTermination} at the end of the overridden method.
      *
      * @param exception the exception causing this thread to abort due
-     * to an unrecoverable error, or {@code null} if completed normally
+     *                  to an unrecoverable error, or {@code null} if completed normally
      */
     protected void onTermination(Throwable exception) {
     }

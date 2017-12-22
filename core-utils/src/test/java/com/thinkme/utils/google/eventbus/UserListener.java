@@ -14,6 +14,6 @@ public class UserListener extends AsyncListener<User> {
     @Subscribe
     @AllowConcurrentEvents
     protected void doSubscibe(User user) {
-        System.out.println("xxxxxxxxxxxxxxxx"+user.getName());
+        System.out.println("xxxxxxxxxxxxxxxx" + user.getName());
     }
 }

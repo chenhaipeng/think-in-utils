@@ -13,9 +13,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 class RedisDistributedLock implements DistributedLock {
 
-    private RLock rLock;
-
     public static final int INFINITE_LEASE_TIME = -1;
+    private RLock rLock;
 
     RedisDistributedLock(RLock rLock) {
         this.rLock = rLock;
@@ -34,10 +33,10 @@ class RedisDistributedLock implements DistributedLock {
         } catch (InterruptedException e) {
             result = false;
             Thread.currentThread().interrupt();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new LockException(e.getMessage(), e);
         }
-        if(!result){
+        if (!result) {
             throw new LockException("can't require the lock resource in " + timeUnit.toMillis(waitTime) + " millisecond(s).");
         }
     }
@@ -49,7 +48,7 @@ class RedisDistributedLock implements DistributedLock {
         } catch (IllegalMonitorStateException e) {//NOSONAR
             // unLock()的时候有可能leaseTime到了锁释放了，所以需要catch IllegalMonitorStateException
             // 注意：正常的情况下，典型的内存锁实现下，不能只捕捉此异常而不做任何处理
-            log.warn("unlock fail : "+ e.getMessage());
+            log.warn("unlock fail : " + e.getMessage());
         }
     }
 

@@ -8,17 +8,17 @@ package com.thinkme.utils.concurrent.jsr166e;
 
 /**
  * http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/jsr166e/RecursiveAction.java 1.3
- * 
+ * <p>
  * A recursive resultless {@link ForkJoinTask}.  This class
  * establishes conventions to parameterize resultless actions as
  * {@code Void} {@code ForkJoinTask}s. Because {@code null} is the
  * only valid value of type {@code Void}, methods such as {@code join}
  * always return {@code null} upon completion.
- *
+ * <p>
  * <p><b>Sample Usages.</b> Here is a simple but complete ForkJoin
  * sort that sorts a given {@code long[]} array:
- *
- *  <pre> {@code
+ * <p>
+ * <pre> {@code
  * static class SortTask extends RecursiveAction {
  *   final long[] array; final int lo, hi;
  *   SortTask(long[] array, int lo, int hi) {
@@ -47,12 +47,12 @@ package com.thinkme.utils.concurrent.jsr166e;
  *         buf[i++] : array[k++];
  *   }
  * }}</pre>
- *
+ * <p>
  * You could then sort {@code anArray} by creating {@code new
  * SortTask(anArray)} and invoking it in a ForkJoinPool.  As a more
  * concrete simple example, the following task increments each element
  * of an array:
- *  <pre> {@code
+ * <pre> {@code
  * class IncrementTask extends RecursiveAction {
  *   final long[] array; final int lo, hi;
  *   IncrementTask(long[] array, int lo, int hi) {
@@ -70,7 +70,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  *     }
  *   }
  * }}</pre>
- *
+ * <p>
  * <p>The following example illustrates some refinements and idioms
  * that may lead to better performance: RecursiveActions need not be
  * fully recursive, so long as they maintain the basic
@@ -82,8 +82,8 @@ package com.thinkme.utils.concurrent.jsr166e;
  * counterbalances potential excess partitioning by directly
  * performing leaf actions on unstolen tasks rather than further
  * subdividing.
- *
- *  <pre> {@code
+ * <p>
+ * <pre> {@code
  * double sumOfSquares(ForkJoinPool pool, double[] array) {
  *   int n = array.length;
  *   Applyer a = new Applyer(array, 0, n, null);
@@ -132,8 +132,8 @@ package com.thinkme.utils.concurrent.jsr166e;
  *   }
  * }}</pre>
  *
- * @since 1.7
  * @author Doug Lea
+ * @since 1.7
  */
 public abstract class RecursiveAction extends ForkJoinTask<Void> {
     private static final long serialVersionUID = 5232453952276485070L;
@@ -148,12 +148,15 @@ public abstract class RecursiveAction extends ForkJoinTask<Void> {
      *
      * @return {@code null} always
      */
-    public final Void getRawResult() { return null; }
+    public final Void getRawResult() {
+        return null;
+    }
 
     /**
      * Requires null completion value.
      */
-    protected final void setRawResult(Void mustBeNull) { }
+    protected final void setRawResult(Void mustBeNull) {
+    }
 
     /**
      * Implements execution conventions for RecursiveActions.

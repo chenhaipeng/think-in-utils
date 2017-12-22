@@ -15,17 +15,17 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class CommonIdGeneratorTest {
-    
+
     @Before
     public void init() {
         CommonIdGenerator.setClock(AbstractClock.systemClock());
     }
-    
+
     @Test
     public void generateId() throws Exception {
         int threadNumber = Runtime.getRuntime().availableProcessors() << 1;
         ExecutorService executor = Executors.newFixedThreadPool(threadNumber);
-    
+
         final int taskNumber = threadNumber << 2;
         final CommonIdGenerator idGenerator = new CommonIdGenerator();
         Set<Long> hashSet = new HashSet<>();
@@ -39,12 +39,12 @@ public class CommonIdGeneratorTest {
         }
         System.out.println(hashSet);
         assertThat(hashSet.size(), is(taskNumber));
-       for (Long l : hashSet){
-           System.out.println((l+"").length());
-           break;
-       }
+        for (Long l : hashSet) {
+            System.out.println((l + "").length());
+            break;
+        }
     }
-    
+
     @Test
     public void testMaxSequence() throws Exception {
         assertThat(maxId((1 << 12) - 1), is((1L << 12L) - 2));
@@ -53,7 +53,7 @@ public class CommonIdGeneratorTest {
         assertThat(maxId(1 << 13), is((1L << 12L) - 1));
         assertThat(maxId((1 << 13) + 1), is((1L << 12L) - 1));
     }
-    
+
     private long maxId(final int maxSequence) {
         CommonIdGenerator idGenerator = new CommonIdGenerator();
         CommonIdGenerator.setClock(new FixClock(maxSequence));

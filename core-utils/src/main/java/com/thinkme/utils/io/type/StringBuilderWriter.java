@@ -21,7 +21,7 @@ import java.io.Writer;
 
 /**
  * JDK的java.io.StringWriter使用StringBuffer，移植Commons IO使用StringBuilder的版本.
- * 
+ * <p>
  * {@link Writer} implementation that outputs to a {@link StringBuilder}.
  * <p>
  * <strong>NOTE:</strong> This implementation, as an alternative to
@@ -56,7 +56,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
 
     /**
      * Constructs a new instance with the specified {@link StringBuilder}.
-     * 
+     * <p>
      * <p>If {@code builder} is null a new instance with default capacity will be created.</p>
      *
      * @param builder The String builder. May be null.
@@ -94,7 +94,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
      *
      * @param value The character to append
      * @param start The index of the first character
-     * @param end The index of the last character + 1
+     * @param end   The index of the last character + 1
      * @return This writer instance
      */
     @Override
@@ -104,7 +104,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
     }
 
     /**
-     * Closing this writer has no effect. 
+     * Closing this writer has no effect.
      */
     @Override
     public void close() {
@@ -112,7 +112,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
     }
 
     /**
-     * Flushing this writer has no effect. 
+     * Flushing this writer has no effect.
      */
     @Override
     public void flush() {
@@ -122,7 +122,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
 
     /**
      * Writes a String to the {@link StringBuilder}.
-     * 
+     *
      * @param value The value to write
      */
     @Override
@@ -135,7 +135,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
     /**
      * Writes a portion of a character array to the {@link StringBuilder}.
      *
-     * @param value The value to write
+     * @param value  The value to write
      * @param offset The index of the first character
      * @param length The number of characters to write
      */

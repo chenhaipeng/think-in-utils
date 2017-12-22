@@ -1,6 +1,7 @@
 package com.thinkme.utils.google.reflection;
 
 import com.google.common.reflect.Reflection;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -23,15 +24,15 @@ public class DynamicProxyTest {
         jdkFoo.doSomething();
     }
 
-    public static class MyInvocationHandler implements InvocationHandler{
-    public Object invoke(Object proxy, Method method, Object[] args)
+    public static interface IFoo {
+        void doSomething();
+    }
+
+    public static class MyInvocationHandler implements InvocationHandler {
+        public Object invoke(Object proxy, Method method, Object[] args)
                 throws Throwable {
             System.out.println("proxy println something");
             return null;
         }
-    }
-
-    public static interface IFoo {
-        void doSomething();
     }
 }

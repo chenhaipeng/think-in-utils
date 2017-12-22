@@ -13,17 +13,17 @@ import java.sql.SQLException;
  */
 public class ThrowablesTest {
 
-	public void test() throws IOException, SQLException {
-		try {
+    public void test() throws IOException, SQLException {
+        try {
 //			someMethodThatCouldThrowAnything();
-		} catch (Exception e) {
+        } catch (Exception e) {
 //			handle(e);
-		} catch (Throwable t) {
-			Throwables.propagateIfInstanceOf(t, IOException.class);
-			Throwables.propagateIfInstanceOf(t, SQLException.class);
-			Throwables.propagateIfPossible(t,RuntimeException.class);
-			throw Throwables.propagate(t);
-		}
+        } catch (Throwable t) {
+            Throwables.propagateIfInstanceOf(t, IOException.class);
+            Throwables.propagateIfInstanceOf(t, SQLException.class);
+            Throwables.propagateIfPossible(t, RuntimeException.class);
+            throw Throwables.propagate(t);
+        }
 
-	}
+    }
 }

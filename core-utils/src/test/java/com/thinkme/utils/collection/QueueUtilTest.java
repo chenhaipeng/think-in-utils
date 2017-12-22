@@ -15,40 +15,40 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class QueueUtilTest {
 
-	@Test
-	public void guavaBuildSet() {
-		ArrayDeque<String> queue1 = QueueUtil.newArrayDeque(16);
-		LinkedList<String> queue2 = QueueUtil.newLinkedDeque();
+    @Test
+    public void guavaBuildSet() {
+        ArrayDeque<String> queue1 = QueueUtil.newArrayDeque(16);
+        LinkedList<String> queue2 = QueueUtil.newLinkedDeque();
 
-		//good ，平时应该使用currentNonBlockingQueue 代替LinkBlockingQueue
-		ConcurrentLinkedQueue<String> queue3 = QueueUtil.newConcurrentNonBlockingQueue();
-		Deque<String> queue7 = QueueUtil.newConcurrentNonBlockingDeque();
+        //good ，平时应该使用currentNonBlockingQueue 代替LinkBlockingQueue
+        ConcurrentLinkedQueue<String> queue3 = QueueUtil.newConcurrentNonBlockingQueue();
+        Deque<String> queue7 = QueueUtil.newConcurrentNonBlockingDeque();
 
-		LinkedBlockingQueue<String> queue4 = QueueUtil.newBlockingUnlimitQueue();
-		LinkedBlockingDeque<String> queue8 = QueueUtil.newBlockingUnlimitDeque();
+        LinkedBlockingQueue<String> queue4 = QueueUtil.newBlockingUnlimitQueue();
+        LinkedBlockingDeque<String> queue8 = QueueUtil.newBlockingUnlimitDeque();
 
-		LinkedBlockingQueue<String> queue5 = QueueUtil.newLinkedBlockingQueue(100);
-		ArrayBlockingQueue<String> queue6 = QueueUtil.newArrayBlockingQueue(100);
-		LinkedBlockingDeque<String> queue9 = QueueUtil.newBlockingDeque(100);
-	}
+        LinkedBlockingQueue<String> queue5 = QueueUtil.newLinkedBlockingQueue(100);
+        ArrayBlockingQueue<String> queue6 = QueueUtil.newArrayBlockingQueue(100);
+        LinkedBlockingDeque<String> queue9 = QueueUtil.newBlockingDeque(100);
+    }
 
-	@Test
-	public void stack() {
+    @Test
+    public void stack() {
 
-		Queue<String> stack = QueueUtil.createStack(10);
-		Queue<String> stack2 = QueueUtil.createConcurrentStack();
+        Queue<String> stack = QueueUtil.createStack(10);
+        Queue<String> stack2 = QueueUtil.createConcurrentStack();
 
-		stack.offer("1");
-		stack.offer("2");
-		
-		assertThat(stack.poll()).isEqualTo("2");
-		assertThat(stack.poll()).isEqualTo("1");
-		
-		stack2.offer("1");
-		stack2.offer("2");
-		
-		assertThat(stack2.poll()).isEqualTo("2");
-		assertThat(stack2.poll()).isEqualTo("1");
-	}
+        stack.offer("1");
+        stack.offer("2");
+
+        assertThat(stack.poll()).isEqualTo("2");
+        assertThat(stack.poll()).isEqualTo("1");
+
+        stack2.offer("1");
+        stack2.offer("2");
+
+        assertThat(stack2.poll()).isEqualTo("2");
+        assertThat(stack2.poll()).isEqualTo("1");
+    }
 
 }

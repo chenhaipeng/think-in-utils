@@ -50,36 +50,7 @@ public class CommonIdGenerator implements IdGenerator {
 
     // 机器Id
     private static long workerId;
-
-    public static long getWorkerId() {
-        return workerId;
-    }
-
-    public static void setWorkerId(long workerId) {
-        CommonIdGenerator.workerId = workerId;
-    }
-
     private static AbstractClock clock = AbstractClock.systemClock();
-
-    public static AbstractClock getClock() {
-        return clock;
-    }
-
-    public static void setClock(AbstractClock clock) {
-        CommonIdGenerator.clock = clock;
-    }
-
-    private long sequence;
-
-    private long lastTime;
-
-    public long getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(long sequence) {
-        this.sequence = sequence;
-    }
 
     static {
         // 从2017年1月1日开始
@@ -93,8 +64,19 @@ public class CommonIdGenerator implements IdGenerator {
         initWorkerId();
     }
 
-    public CommonIdGenerator(){
+    private long sequence;
+    private long lastTime;
 
+    public CommonIdGenerator() {
+
+    }
+
+    public static long getWorkerId() {
+        return workerId;
+    }
+
+    public static void setWorkerId(long workerId) {
+        CommonIdGenerator.workerId = workerId;
     }
 
     /**
@@ -107,6 +89,14 @@ public class CommonIdGenerator implements IdGenerator {
         CommonIdGenerator.workerId = workerId;
     }
 
+    public static AbstractClock getClock() {
+        return clock;
+    }
+
+    public static void setClock(AbstractClock clock) {
+        CommonIdGenerator.clock = clock;
+    }
+
     /**
      * 获取工作Id的二进制长度.
      *
@@ -114,6 +104,27 @@ public class CommonIdGenerator implements IdGenerator {
      */
     public static long getWorkerIdLength() {
         return WORKER_ID_BITS;
+    }
+
+    static void initWorkerId() {
+        String workerId = System.getProperty(VariableConst.SELF_WORKER_ID_PROPERTY);
+        if (!Validate.isNullOrEmpty(workerId)) {
+            setWorkerId(Long.valueOf(workerId));
+            return;
+        }
+        workerId = System.getenv(VariableConst.SELF_WORKER_ID_ENV);
+        if (Validate.isNullOrEmpty(workerId)) {
+            return;
+        }
+        setWorkerId(Long.valueOf(workerId));
+    }
+
+    public long getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(long sequence) {
+        this.sequence = sequence;
     }
 
     /**
@@ -141,6 +152,7 @@ public class CommonIdGenerator implements IdGenerator {
 
     /**
      * //同一毫秒的序列数已经达到最大
+     *
      * @param lastTime
      * @return
      */
@@ -152,36 +164,24 @@ public class CommonIdGenerator implements IdGenerator {
         return time;
     }
 
-    static void initWorkerId() {
-        String workerId = System.getProperty(VariableConst.SELF_WORKER_ID_PROPERTY);
-        if (!Validate.isNullOrEmpty(workerId)) {
-            setWorkerId(Long.valueOf(workerId));
-            return;
+    private static class Validate {
+
+        private Validate() {
         }
-        workerId = System.getenv(VariableConst.SELF_WORKER_ID_ENV);
-        if (Validate.isNullOrEmpty(workerId)) {
-            return;
-        }
-        setWorkerId(Long.valueOf(workerId));
-    }
 
-    private static class Validate{
-
-        private Validate(){}
-
-        public static void checkArgument(boolean expression){
-            if(!expression){
+        public static void checkArgument(boolean expression) {
+            if (!expression) {
                 throw new IllegalArgumentException();
             }
         }
 
-        public static void checkState(boolean expression, String errorMessageTemplate, Object... vars){
+        public static void checkState(boolean expression, String errorMessageTemplate, Object... vars) {
             if (!expression) {
                 throw new IllegalStateException(String.format(errorMessageTemplate, vars));
             }
         }
 
-        public static boolean isNullOrEmpty(String string){
+        public static boolean isNullOrEmpty(String string) {
             return string == null || string.isEmpty();
         }
     }

@@ -7,42 +7,42 @@ package com.thinkme.utils.apache.beanutils;
  * @date 2017/08/05 下午3:09
  */
 public class Entity {
-	private int id;
-	private String name;
+    private int id;
+    private String name;
 
-	public int getId() {
-		return id;
-	}
+    public Entity() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Entity(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
-	public Entity() {
-	}
+    public int getId() {
+        return id;
+    }
 
-	public Entity(int id, String name) {
-		this.id = id;
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void haha(){
-		System.out.println("method haha");
-	}
+    public void haha() {
+        System.out.println("method haha");
+    }
 
-	public void sayHello(String name){
-		System.out.println("method say hello :"+ name);
-	}
+    public void sayHello(String name) {
+        System.out.println("method say hello :" + name);
+    }
 
-	public void countAges(int age1 , int age2){
-		System.out.println("count ages"+age1+age2);
-	}
+    public void countAges(int age1, int age2) {
+        System.out.println("count ages" + age1 + age2);
+    }
 }

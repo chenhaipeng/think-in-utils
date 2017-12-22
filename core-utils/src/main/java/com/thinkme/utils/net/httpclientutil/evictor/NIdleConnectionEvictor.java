@@ -1,24 +1,22 @@
 package com.thinkme.utils.net.httpclientutil.evictor;
 
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.http.nio.conn.NHttpClientConnectionManager;
 import org.apache.http.util.Args;
+
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class maintains a background thread to enforce an eviction policy for expired / idle
  * persistent connections kept alive in the connection pool.
- *
  */
 public final class NIdleConnectionEvictor {
 
-    private NHttpClientConnectionManager connMgr;
     private final ThreadFactory threadFactory;
     private final Thread thread;
     private final long sleepTimeMs;
     private final long maxIdleTimeMs;
-
+    private NHttpClientConnectionManager connMgr;
     private volatile Exception exception;
 
     public NIdleConnectionEvictor(
@@ -27,7 +25,7 @@ public final class NIdleConnectionEvictor {
             final long sleepTime, final TimeUnit sleepTimeUnit,
             final long maxIdleTime, final TimeUnit maxIdleTimeUnit) {
         //this.connMgr = Args.notNull(connMgr, "Connection manager");
-    	this.connMgr = connMgr;
+        this.connMgr = connMgr;
         this.threadFactory = threadFactory != null ? threadFactory : new DefaultThreadFactory();
         this.sleepTimeMs = sleepTimeUnit != null ? sleepTimeUnit.toMillis(sleepTime) : sleepTime;
         this.maxIdleTimeMs = maxIdleTimeUnit != null ? maxIdleTimeUnit.toMillis(maxIdleTime) : maxIdleTime;
@@ -64,21 +62,21 @@ public final class NIdleConnectionEvictor {
                 maxIdleTime > 0 ? maxIdleTime : 5, maxIdleTimeUnit != null ? maxIdleTimeUnit : TimeUnit.SECONDS,
                 maxIdleTime, maxIdleTimeUnit);
     }
-    
+
     public NIdleConnectionEvictor(
-    		final long maxIdleTime, final TimeUnit maxIdleTimeUnit) {
-    	this(null, null,
-    			maxIdleTime > 0 ? maxIdleTime : 5, maxIdleTimeUnit != null ? maxIdleTimeUnit : TimeUnit.SECONDS,
-    					maxIdleTime, maxIdleTimeUnit);
+            final long maxIdleTime, final TimeUnit maxIdleTimeUnit) {
+        this(null, null,
+                maxIdleTime > 0 ? maxIdleTime : 5, maxIdleTimeUnit != null ? maxIdleTimeUnit : TimeUnit.SECONDS,
+                maxIdleTime, maxIdleTimeUnit);
     }
-    
-    public NIdleConnectionEvictor setConnMgr(final NHttpClientConnectionManager connMgr){
-        this.connMgr = Args.notNull(connMgr, "Connection manager");    	
+
+    public NIdleConnectionEvictor setConnMgr(final NHttpClientConnectionManager connMgr) {
+        this.connMgr = Args.notNull(connMgr, "Connection manager");
         return this;
     }
 
     public void start() {
-    	Args.notNull(connMgr, "Connection manager");
+        Args.notNull(connMgr, "Connection manager");
         thread.start();
     }
 
@@ -93,14 +91,14 @@ public final class NIdleConnectionEvictor {
     public void awaitTermination(final long time, final TimeUnit tunit) throws InterruptedException {
         thread.join((tunit != null ? tunit : TimeUnit.MILLISECONDS).toMillis(time));
     }
-    
+
     public void await() {
-    	try {
-    		shutdown();
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        try {
+            shutdown();
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     static class DefaultThreadFactory implements ThreadFactory {
@@ -112,7 +110,9 @@ public final class NIdleConnectionEvictor {
             return t;
         }
 
-    };
+    }
+
+    ;
 
 
 }

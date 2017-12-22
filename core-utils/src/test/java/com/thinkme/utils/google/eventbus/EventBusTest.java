@@ -12,7 +12,7 @@ public class EventBusTest {
     @Test
     public void should_recv_event_message() throws Exception {
         EventBus eventBus = new EventBus();
-        CookieContainer cookieContainer=new CookieContainer(eventBus);
+        CookieContainer cookieContainer = new CookieContainer(eventBus);
         HandlerService cookieSeller = new CookieSeller(eventBus);
         HandlerService cookieMallBoss = new CookieMallBoss(eventBus);
 
@@ -28,7 +28,6 @@ public class EventBusTest {
 //        Thread.sleep(1000);
 
 
-
     }
 
     @Test
@@ -41,8 +40,8 @@ public class EventBusTest {
         EventBusUtils.asyncEventBus.register(new UserListener());
         EventBusUtils.asyncEventBus.register(new UserListener2());
 
-        EventBusUtils.post(user,UserListener.class);
-        EventBusUtils.post(user2,UserListener2.class);
+        EventBusUtils.post(user, UserListener.class);
+        EventBusUtils.post(user2, UserListener2.class);
 
     }
 }

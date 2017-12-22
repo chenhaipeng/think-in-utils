@@ -8,12 +8,12 @@ package com.thinkme.utils.concurrent.jsr166e;
 
 /**
  * http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/jsr166e/RecursiveTask.java 1.4
- * 
+ * <p>
  * A recursive result-bearing {@link ForkJoinTask}.
- *
+ * <p>
  * <p>For a classic example, here is a task computing Fibonacci numbers:
- *
- *  <pre> {@code
+ * <p>
+ * <pre> {@code
  * class Fibonacci extends RecursiveTask<Integer> {
  *   final int n;
  *   Fibonacci(int n) { this.n = n; }
@@ -26,7 +26,7 @@ package com.thinkme.utils.concurrent.jsr166e;
  *     return f2.compute() + f1.join();
  *   }
  * }}</pre>
- *
+ * <p>
  * However, besides being a dumb way to compute Fibonacci functions
  * (there is a simple fast linear algorithm that you'd use in
  * practice), this is likely to perform poorly because the smallest
@@ -35,8 +35,8 @@ package com.thinkme.utils.concurrent.jsr166e;
  * minimum granularity size (for example 10 here) for which you always
  * sequentially solve rather than subdividing.
  *
- * @since 1.7
  * @author Doug Lea
+ * @since 1.7
  */
 public abstract class RecursiveTask<V> extends ForkJoinTask<V> {
     private static final long serialVersionUID = 5232453952276485270L;
@@ -48,6 +48,7 @@ public abstract class RecursiveTask<V> extends ForkJoinTask<V> {
 
     /**
      * The main computation performed by this task.
+     *
      * @return the result of the computation
      */
     protected abstract V compute();

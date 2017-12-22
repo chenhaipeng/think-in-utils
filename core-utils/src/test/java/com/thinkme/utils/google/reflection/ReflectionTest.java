@@ -14,19 +14,20 @@ import java.util.ArrayList;
 public class ReflectionTest {
 
     @Test
-    public void testTypeToken(){
+    public void testTypeToken() {
         ArrayList<String> stringList = Lists.newArrayList();
         ArrayList<Integer> intList = Lists.newArrayList();
         System.out.println(stringList.getClass().isAssignableFrom(intList.getClass()));
 //        returns true, even though ArrayList<String> is not assignable from ArrayList<Integer>
 
-        TypeToken<ArrayList<String>> typeToken = new TypeToken<ArrayList<String>>() {};
+        TypeToken<ArrayList<String>> typeToken = new TypeToken<ArrayList<String>>() {
+        };
         TypeToken<?> genericTypeToken = typeToken.resolveType(ArrayList.class.getTypeParameters()[0]);
         System.out.println(genericTypeToken.getType());
     }
 
     @Test
-    public void testInvokable(){
+    public void testInvokable() {
 //        方法的第一个参数是否被定义了注解@Nullable？
 /*        for (Annotation annotation : method.getParameterAnnotations[0]) {
             if (annotation instanceof Nullable) {
@@ -37,7 +38,6 @@ public class ReflectionTest {
 
 
     }
-
 
 
 }

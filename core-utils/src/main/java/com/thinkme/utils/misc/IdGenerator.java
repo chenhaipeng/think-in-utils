@@ -5,13 +5,12 @@
  *******************************************************************************/
 package com.thinkme.utils.misc;
 
-import java.security.SecureRandom;
-import java.util.UUID;
-
+import com.google.common.annotations.Beta;
 import com.thinkme.utils.number.RandomUtil;
 import com.thinkme.utils.text.EncodeUtil;
 
-import com.google.common.annotations.Beta;
+import java.security.SecureRandom;
+import java.util.UUID;
 
 /**
  * 封装各种生成唯一性ID算法的工具类.
@@ -19,35 +18,35 @@ import com.google.common.annotations.Beta;
 @Beta
 public class IdGenerator {
 
-	private static SecureRandom random = new SecureRandom();
+    private static SecureRandom random = new SecureRandom();
 
-	/**
-	 * 封装JDK自带的UUID, 通过Random数字生成, 中间有-分割.
-	 */
-	public static String uuid() {
-		return UUID.randomUUID().toString();
-	}
+    /**
+     * 封装JDK自带的UUID, 通过Random数字生成, 中间有-分割.
+     */
+    public static String uuid() {
+        return UUID.randomUUID().toString();
+    }
 
-	/**
-	 * 封装JDK自带的UUID, 通过Random数字生成, 中间无-分割.
-	 */
-	public static String uuid2() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
-	}
+    /**
+     * 封装JDK自带的UUID, 通过Random数字生成, 中间无-分割.
+     */
+    public static String uuid2() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
 
-	/**
-	 * 使用SecureRandom随机生成Long.
-	 */
-	public static long randomLong() {
-		return RandomUtil.nextLong();
-	}
+    /**
+     * 使用SecureRandom随机生成Long.
+     */
+    public static long randomLong() {
+        return RandomUtil.nextLong();
+    }
 
-	/**
-	 * 基于URLSafeBase64编码的SecureRandom随机生成bytes.
-	 */
-	public static String randomBase64(int length) {
-		byte[] randomBytes = new byte[length];
-		random.nextBytes(randomBytes);
-		return EncodeUtil.encodeBase64UrlSafe(randomBytes);
-	}
+    /**
+     * 基于URLSafeBase64编码的SecureRandom随机生成bytes.
+     */
+    public static String randomBase64(int length) {
+        byte[] randomBytes = new byte[length];
+        random.nextBytes(randomBytes);
+        return EncodeUtil.encodeBase64UrlSafe(randomBytes);
+    }
 }

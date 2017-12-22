@@ -10,11 +10,10 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by liangqq on 2017/3/7.
  */
 
-class SegmentLock{
-
-    private  int segments = 16; //默认分段数量
+class SegmentLock {
 
     private final Map<Integer, ReentrantLock> lockMap = new HashMap<>();
+    private int segments = 16; //默认分段数量
 
     public SegmentLock() {
         init(-1, false);
@@ -29,11 +28,12 @@ class SegmentLock{
     }
 
     /**
-     *  获取锁对象
+     * 获取锁对象
+     *
      * @param key 锁key
      * @return
      */
-    public Lock getLock(String key){
+    public Lock getLock(String key) {
         return lockMap.get(key.hashCode() % segments);
     }
 

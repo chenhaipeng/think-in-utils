@@ -4,8 +4,8 @@ import com.thinkme.utils.base.annotation.Nullable;
 
 public class Foo {
 
-	@Nullable
-	String sortedBy;
+    @Nullable
+    String sortedBy;
     int notSortedBy;
 
 }

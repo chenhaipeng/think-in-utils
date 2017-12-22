@@ -23,12 +23,11 @@ import java.util.*;
  * BeanUtils的等价类，只是将check exception改为uncheck exception
  */
 public class BeanUtils {
-    private static Logger logger = LoggerFactory.getLogger(BeanUtils.class);
     /**
      * BeanUtil类型转换器
      */
     public final static ConvertUtilsBean convertUtilsBean = new ConvertUtilsBean();
-
+    private static Logger logger = LoggerFactory.getLogger(BeanUtils.class);
     private static BeanUtilsBean beanUtilsBean = new BeanUtilsBean(convertUtilsBean, new PropertyUtilsBean());
 
     static {
