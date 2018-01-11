@@ -53,9 +53,9 @@ public class CommonIdGenerator implements IdGenerator {
     private static AbstractClock clock = AbstractClock.systemClock();
 
     static {
-        // 从2017年1月1日开始
+        // 从2018年1月1日开始
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2017, Calendar.MARCH, 1);
+        calendar.set(2018, Calendar.MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -75,10 +75,6 @@ public class CommonIdGenerator implements IdGenerator {
         return workerId;
     }
 
-    public static void setWorkerId(long workerId) {
-        CommonIdGenerator.workerId = workerId;
-    }
-
     /**
      * 设置工作进程Id.
      *
@@ -86,6 +82,10 @@ public class CommonIdGenerator implements IdGenerator {
      */
     public static void setWorkerId(final Long workerId) {
         Validate.checkArgument(workerId >= 0L && workerId < WORKER_ID_MAX_VALUE);
+        CommonIdGenerator.workerId = workerId;
+    }
+
+    public static void setWorkerId(long workerId) {
         CommonIdGenerator.workerId = workerId;
     }
 
