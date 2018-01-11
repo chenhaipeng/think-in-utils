@@ -125,12 +125,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-        </dependency>
-
         <!-- only for XMLMapper test -->
         <dependency>
             <groupId>dom4j</groupId>
