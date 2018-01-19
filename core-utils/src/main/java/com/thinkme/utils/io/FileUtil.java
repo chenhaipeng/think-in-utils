@@ -279,7 +279,7 @@ public class FileUtil {
     }
 
     /**
-     * 判断文件是否存在, from Jodd
+     * 判断文件是否存在, from Joddq
      */
     public static boolean isFileExists(String fileName) {
         return isFileExists(getFileByPath(fileName));

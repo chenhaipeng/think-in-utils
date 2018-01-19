@@ -14,6 +14,7 @@ public class URLResourceTest {
     @Test
     public void resource() throws IOException {
         File file = URLResourceUtil.asFile("classpath://application.properties");
+        System.out.println(file.getAbsolutePath()+"   "+file.getName());
         assertThat(FileUtil.toString(file)).isEqualTo("springside.min=1\nspringside.max=10");
 
         InputStream is = URLResourceUtil.asStream("classpath://application.properties");

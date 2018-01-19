@@ -5,6 +5,8 @@ import com.thinkme.utils.base.Platforms;
 import com.thinkme.utils.text.MoreStringUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
+
 /**
  * 关于文件路径的工具集
  *
@@ -76,6 +78,20 @@ public class FilePathUtil {
         }
 
         return parentPath;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static String getClassRootPath() {
+        String rootPath = Class.class.getClass().getResource("/").getPath();
+        return rootPath;
+    }
+
+    public static String getProjectRootPath(){
+        String rootPath = new File("").getAbsolutePath();
+        return rootPath;
     }
 
     /**
