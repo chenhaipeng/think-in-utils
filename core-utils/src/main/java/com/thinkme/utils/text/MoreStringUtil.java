@@ -6,6 +6,7 @@ import com.thinkme.utils.collection.ListUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -138,4 +139,26 @@ public class MoreStringUtil {
         }
         return Utf8.encodedLength(sequence);
     }
+
+    /**
+     * 将collects 转为db in需要的字符串
+     * @param iterable
+     * @return
+     */
+    public static String dbInString(Iterable iterable){
+        Iterator iterator = iterable.iterator();
+        StringBuilder sb = new StringBuilder();
+        while (iterator.hasNext()){
+            Object o = iterator.next();
+            if (o instanceof String){
+                sb.append(StringUtils.wrap((String) o, "'")).append(",");
+            }else {
+                sb.append(o).append(",");
+            }
+
+        }
+        return sb.toString().substring(0,sb.length()-1);
+
+    }
+
 }
